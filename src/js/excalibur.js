@@ -145,6 +145,18 @@
     };
 
     /**
+     * Посчитать факториал числа
+     * @param  {integer} n число
+     * @return {number} факториал числа
+     */
+    E.Math.factorial = (function() {
+        var fv = [1,1];
+        return function(n) {
+            return fv[n] ? fv[n] : fv[n] = E.Math.factorial(n - 1) * n;
+        }
+    }());
+
+    /**
      * Работа с классами =======================================================
      *
      */
