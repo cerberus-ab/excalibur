@@ -13,7 +13,10 @@
 ```html
 <script src="js/excalibur.js"></script>
 ```
-Excalibur (E)
+**Пространство имен**
+```javascript
+Excalibur = E
+```
 + Object
   - extend
 + Function
@@ -50,7 +53,7 @@ E.Array.sort
 E.Array.sort[name](array[, reverse]);
 E.Array.sort[name](array, compare[, reverse]);
 ```
-+ `name`: Используемый алгоритм сортировки.
++ `name`: Используемый алгоритм сортировки (см. список доступных ниже).
 + `array`: Целевой массив элементов.
 + `compare`: Используемая функция сравнения пар элементов. (Optional)
 + `reverse`: Флаг реверсии используемой функции сравнения. (Optional, Default: false)
@@ -71,7 +74,10 @@ E.Array.sort[name](array, compare[, reverse]);
 <script src="js/excalibur.js"></script>
 <script src="js/excalibur-math-sequence.js"></script>
 ```
+**Пространство имен**
+```javascript
 E.Math.sequence
+```
 + fibonacci
 + prime
 
