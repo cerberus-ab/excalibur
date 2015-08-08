@@ -117,7 +117,7 @@
         function qsort(array, left, right, compare) {
             var i = left,
                 j = right,
-                pivot = array[Math.floor((i + j)/2)];
+                pivot = array[(i + j)>>1];
             do {
                 while (compare(array[i], pivot) < 0) i++;
                 while (compare(array[j], pivot) > 0) j--;
@@ -136,5 +136,54 @@
             return qsort(array, 0, array.length -1, compare);
         }
     }()));
+
+    /**
+     * Сортировка слиянием
+     *
+     */
+    _sort.merge = SortBuilder((function() {
+
+        function msort(array, left, right, compare) {
+            if (left < right) {
+                var middle = (left + right)>>1;
+                msort(array, left, middle, compare);
+                msort(array, middle +1, right, compare);
+                var buff = [], i;
+                for (var beg = i = left, end = middle +1; i <= right; ++i) {
+                    buff[i] = (beg <= middle && (end > right || compare(array[beg], array[end]) < 0))
+                        ? array[beg++] : array[end++];
+                }
+                for (i = left; i <= right; ++i) {
+                    array[i] = buff[i];
+                }
+            }
+            return array;
+        }
+
+        return function(array, compare) {
+            return msort(array, 0, array.length -1, compare);
+        }
+    }()));
+
+    /**
+     * Сортировка Шелла
+     *
+     */
+    _sort.shell = SortBuilder(function(array, compare) {
+        var len = array.length,
+            i, j, k, tmp;
+        for (k = len>>1; k > 0; k >>= 1) {
+            for (i = k; i != len; ++i) {
+                tmp = array[i];
+                for (j = i; j >= k; j -= k) {
+                    if (compare(tmp, array[j - k]) < 0) {
+                        array[j] = array[j - k];
+                    }
+                    else break;
+                }
+                array[j] = tmp;
+            }
+        }
+    });
 
 }(Excalibur);
