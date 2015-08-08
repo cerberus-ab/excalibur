@@ -1,5 +1,5 @@
 # Excalibur
-#### Just another javascript-native library
+*Just another javascript-native library*
 
 ## excalibur[-core]
 Главный модуль библиотеки, ядро. Все остальные модули дополняют его функционал; содержит базовые методы работы с массивами, объектами, функциями и прочими элементами нативного JavaScript.
@@ -14,8 +14,11 @@
   - swap
   - create
 + Math
+  - isInteger
+  - isPrime
   - getRandomInt
   - factorial
+  - pow
 + Class
   - extend
 + Performance
@@ -35,3 +38,4 @@
 
 [E.Math.sequence](src/js/excalibur-math-sequence.js):
 + fibonacci
++ prime
