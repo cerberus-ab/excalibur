@@ -7,7 +7,7 @@
 + [soon](#soon)
 
 ## excalibur[-core]
-[source](src/js/excalibur.js) [minified](build/js/excalibur.js)
+[source](src/js/excalibur.js)
 
 Главный модуль библиотеки, ядро. Все остальные модули дополняют его функционал; содержит базовые методы работы с массивами, объектами, функциями и прочими элементами нативного JavaScript.
 ```html
@@ -34,7 +34,7 @@ Excalibur (E)
   - run
 
 ## excalibur-array-sort
-[source](src/js/excalibur-array-sort.js) [minified](src/js/excalibur-array-sort.js)
+[source](src/js/excalibur-array-sort.js)
 
 Модуль реализаций различных сортировок для массивов.
 ```html
@@ -46,9 +46,11 @@ E.Array.sort
 + cocktail
 + gnome
 + quick
++ merge
++ shell
 
 ## excalibur-math-sequence
-[source](src/js/excalibur-math-sequence.js) [minified](src/js/excalibur-math-sequence.js)
+[source](src/js/excalibur-math-sequence.js)
 
 Модуль различных числовых последовательностей.
 ```html
@@ -61,8 +63,6 @@ E.Math.sequence
 
 ## soon
 + E.Array.sort (module)
-  - merge
-  - shell
   - insert
   - selection
 + E.String (core)
@@ -70,3 +70,5 @@ E.Math.sequence
 + E.Math.binary (module)
 + E.Math.big (module)
 + E.Pattern (module)
++ E.Coding (core)
++ E.Coding.base64 (module)
