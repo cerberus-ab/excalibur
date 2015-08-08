@@ -4,7 +4,7 @@
 ## excalibur[-core]
 Главный модуль библиотеки, ядро. Все остальные модули дополняют его функционал; содержит базовые методы работы с массивами, объектами, функциями и прочими элементами нативного JavaScript.
 
-[Excalibur (E)](https://github.com/cerberus-ab/excalibur/blob/master/src/js/excalibur.js):
+[Excalibur (E)](src/js/excalibur.js):
 + Object
   - extend
 + Function
@@ -15,6 +15,7 @@
   - create
 + Math
   - getRandomInt
+  - factorial
 + Class
   - extend
 + Performance
@@ -23,8 +24,14 @@
 ## excalibur-array-sort
 Модуль реализаций различных сортировок для массивов.
 
-[E.Array.sort](https://github.com/cerberus-ab/excalibur/blob/master/src/js/excalibur-array-sort.js):
+[E.Array.sort](src/js/excalibur-array-sort.js):
 + bubble
 + cocktail
 + gnome
 + quick
+
+## excalibur-math-sequence
+Модуль различных числовых последовательностей.
+
+[E.Math.sequence](src/js/excalibur-math-sequence.js):
++ fibonacci
