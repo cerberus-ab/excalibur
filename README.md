@@ -41,13 +41,27 @@ Excalibur (E)
 <script src="js/excalibur.js"></script>
 <script src="js/excalibur-array-sort.js"></script>
 ```
+**Пространство имен**
+```javascript
 E.Array.sort
-+ bubble
-+ cocktail
-+ gnome
-+ quick
-+ merge
-+ shell
+```
+**Синтаксис**
+```javascript
+E.Array.sort[name](array[, reverse]);
+E.Array.sort[name](array, compare[, reverse]);
+```
++ `name`: Используемый алгоритм сортировки.
++ `array`: Целевой массив элементов.
++ `compare`: Используемая функция сравнения пар элементов. (Optional)
++ `reverse`: Флаг реверсии используемой функции сравнения. (Optional, Default: false)
+
+**Алгоритмы сортировки**
++ `bubble` Сортировка пузырьком
++ `cocktail` Шейкерная сортировка
++ `gnome` Гномья сортировка
++ `quick` Быстрая сортировка
++ `merge` Сортировка слиянием
++ `shell` Сортировка Шелла
 
 ## excalibur-math-sequence
 [source](src/js/excalibur-math-sequence.js)
@@ -69,6 +83,6 @@ E.Math.sequence
 + E.String.regexp (module)
 + E.Math.binary (module)
 + E.Math.big (module)
-+ E.Pattern (module)
++ E.Pattern (core)
 + E.Coding (core)
 + E.Coding.base64 (module)
