@@ -4,7 +4,7 @@
      * Функции сортировки массивов =============================================
      *
      */
-    var sort = E.Array.sort = {};
+    var _sort = E.Array.sort = {};
 
     /**
      * Функция-билдер функций сортировки
@@ -53,7 +53,7 @@
      * Сортировка пузырьком
      *
      */
-    sort.bubble = SortBuilder(function(array, compare) {
+    _sort.bubble = SortBuilder(function(array, compare) {
         var i, j,
             len = array.length;
         for (var i = 0; i != len -1; ++i) {
@@ -69,7 +69,7 @@
      * Шейкерная сортировка
      *
      */
-    sort.cocktail = SortBuilder(function(array, compare) {
+    _sort.cocktail = SortBuilder(function(array, compare) {
         var i,
             len = array.length,
             left = 0,
@@ -94,7 +94,7 @@
      * Гномья сортировка
      *
      */
-    sort.gnome = SortBuilder(function(array, compare) {
+    _sort.gnome = SortBuilder(function(array, compare) {
         var i = 0,
             len = array.length;
         while (i != len) {
@@ -112,7 +112,7 @@
      * Быстрая сортировка
      *
      */
-    sort.quick = SortBuilder((function(){
+    _sort.quick = SortBuilder((function(){
 
         function qsort(array, left, right, compare) {
             var i = left,

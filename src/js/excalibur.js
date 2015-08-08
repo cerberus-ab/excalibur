@@ -6,7 +6,7 @@
      * Методы работы с объектами ===============================================
      *
      */
-    E.Object = {};
+    var _object = E.Object = {};
 
     /**
      * Наложить свойства одного объекта на другой
@@ -15,7 +15,7 @@
      * @param  {boolean} deep глубокое наложение
      * @return {object} результирующий целевой объект
      */
-    E.Object.extend = function(dst, src, deep) {
+    _object.extend = function(dst, src, deep) {
         for (var property in src) {
             if (deep && src[property] && src[property].constructor === Object) {
                 dst[property] = dst[property] || {};
@@ -31,14 +31,14 @@
      * Методы работы с функциями ===============================================
      *
      */
-    E.Function = {};
+    var _function = E.Function = {};
 
     /**
      * Получить название функции
      * @param  {function} func целевая функция
      * @return {string} название функции
      */
-    E.Function.getName = function(func) {
+    _function.getName = function(func) {
         if (typeof func !== "function") {
             throw new TypeError(func + " is not a function");
         }
@@ -50,7 +50,7 @@
      * @class
      * @param {function} func целевая функция
      */
-    E.Function.Counter = function(func) {
+    _function.Counter = function(func) {
         var count = 0;
         // выполнить функцию
         this.run = function() {
@@ -67,7 +67,7 @@
      * Методы работы с массивами ===============================================
      *
      */
-    E.Array = {};
+    var _array = E.Array = {};
 
     /**
      * Поменять местами элементы массива
@@ -76,7 +76,7 @@
      * @param  {itneger} j второй индекс
      * @return {Array} целевой массив
      */
-    E.Array.swap = function(array, i, j) {
+    _array.swap = function(array, i, j) {
         var temp = array[i];
         array[i] = array[j];
         array[j] = temp;
@@ -89,7 +89,7 @@
      * @param  {function} creator функция создания элементов
      * @return {Array} новый массив
      */
-    E.Array.create = function(length, creator) {
+    _array.create = function(length, creator) {
         var callback;
         switch (typeof creator) {
             // правило формирования
@@ -123,7 +123,30 @@
      * Математические функции ==================================================
      *
      */
-    E.Math = {};
+    var _math = E.Math = {};
+
+    /**
+     * Проверить является ли число целым
+     * @param  {number} numb число
+     * @return {boolean} true/false
+     */
+    _math.isInteger = function(numb) {
+        return typeof numb === "number" && numb % 1 == 0;
+    };
+
+    /**
+     * Проверить является ли целое число простым
+     * @deprecated
+     * @param  {number} numb число
+     * @return {boolean} true/false
+     */
+    _math.isPrime = function(numb) {
+        if (!_math.isInteger(numb) || numb < 2) return false;
+        for (var i = 2, d = Math.sqrt(numb); i <= d; ++i) {
+            if (numb % i == 0) return false;
+        }
+        return true;
+    };
 
     /**
      * Получить случайной целое в диапазоне
@@ -131,7 +154,7 @@
      * @param  {integer} range2 правая граница
      * @return {integer} случайное целое
      */
-    E.Math.getRandomInt = function(range1, range2) {
+    _math.getRandomInt = function(range1, range2) {
         var min = range1 -0,
             max = range2 -0;
         if (arguments.length == 1) {
@@ -149,25 +172,52 @@
      * @param  {integer} n число
      * @return {number} факториал числа
      */
-    E.Math.factorial = (function() {
+    _math.factorial = (function() {
         var fv = [1,1];
         return function(n) {
-            return fv[n] ? fv[n] : fv[n] = E.Math.factorial(n - 1) * n;
+            return fv[n] ? fv[n] : fv[n] = _math.factorial(n - 1) * n;
         }
     }());
+
+    /**
+     * Возведение числа в степень
+     * @param  {number} numb число
+     * @param  {number} pow степень
+     * @return {number} результат
+     */
+    _math.pow = function(numb, pow) {
+        // проверка степени
+        pow -= 0;
+        if (!pow) return 1;
+        // если степень дробная, то обычный метод
+        if (!_math.isInteger(numb)) return Math.pow(numb, pow);
+        // иначе быстрое возведение для целых чисел
+        var result = 1;
+        while (pow) {
+            if (pow % 2 == 0) {
+                pow /= 2;
+                numb *= numb;
+            }
+            else {
+                pow--;
+                result *= numb;
+            }
+        }
+        return result;
+    };
 
     /**
      * Работа с классами =======================================================
      *
      */
-    E.Class = {};
+    var _class = E.Class = {};
 
     /**
      * Наследование
      * @param  {function} Child дочерний класс
      * @param  {function} Parent родительский класс
      */
-    E.Class.extend = function(Child, Parent) {
+    _class.extend = function(Child, Parent) {
         Child.prototype = Object.create(Parent.prototype);
         Child.prototype.constructor = Child;
         Child.superclass = Parent.prototype;
@@ -177,7 +227,7 @@
      * Оценка производительности ===============================================
      *
      */
-    E.Performance = {};
+    var _performance = E.Performance = {};
 
     /**
      * Измерить время выполнения функции
@@ -186,7 +236,7 @@
      * @param  {object} options настройки выполнения
      * @return {object} результаты выполнения
      */
-    E.Performance.run = function(func, attrs, options) {
+    _performance.run = function(func, attrs, options) {
         // атрибуты выполнения по умолчанию
         attrs = E.Object.extend({
             /** @type {integer} количество вызовов */
