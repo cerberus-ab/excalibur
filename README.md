@@ -4,6 +4,7 @@
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-array-sort](#excalibur-array-sort)
 + [excalibur-math-sequence](#excalibur-math-sequence)
++ [soon](#soon)
 
 ## excalibur[-core]
 [source](src/js/excalibur.js) [minified](build/js/excalibur.js)
@@ -57,3 +58,15 @@ E.Array.sort
 E.Math.sequence
 + fibonacci
 + prime
+
+## soon
++ E.Array.sort (module)
+  - merge
+  - shell
+  - insert
+  - selection
++ E.String (core)
++ E.String.regexp (module)
++ E.Math.binary (module)
++ E.Math.big (module)
++ E.Pattern (module)
