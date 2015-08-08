@@ -84,6 +84,42 @@
     };
 
     /**
+     * Создание массива
+     * @param  {integer} length размер массива
+     * @param  {function} creator функция создания элементов
+     * @return {Array} новый массив
+     */
+    E.Array.create = function(length, creator) {
+        var callback;
+        switch (typeof creator) {
+            // правило формирования
+            case "string":
+                switch (creator) {
+                    case "natural":
+                        // натуральные числа
+                        callback = function(currentValue, index) {
+                            return index;
+                        }
+                        break;
+                    // иначе строковые константы
+                    default:
+                        callback = function() { return creator; }
+                        break;
+                }
+                break;
+            // передан колбэк
+            case "function":
+                callback = creator;
+                break;
+            // иначе константы
+            default:
+                callback = function() { return creator; }
+                break;
+        }
+        return Array.apply(null, { length: length }).map(callback);
+    };
+
+    /**
      * Математические функции ==================================================
      *
      */
@@ -123,6 +159,64 @@
         Child.prototype = Object.create(Parent.prototype);
         Child.prototype.constructor = Child;
         Child.superclass = Parent.prototype;
+    };
+
+    /**
+     * Оценка производительности ===============================================
+     *
+     */
+    E.Performance = {};
+
+    /**
+     * Измерить время выполнения функции
+     * @param  {function} func целевая функция
+     * @param  {object} attrs атрибуты выполнения
+     * @param  {object} options настройки выполнения
+     * @return {object} результаты выполнения
+     */
+    E.Performance.run = function(func, attrs, options) {
+        // атрибуты выполнения по умолчанию
+        attrs = E.Object.extend({
+            /** @type {integer} количество вызовов */
+            amount: 1,
+            /** @type {string} название целевой функции */
+            name: E.Function.getName(func)
+        }, attrs);
+
+        // настройки выполнения по умолчанию
+        options = E.Object.extend({
+            /** @type {Mixed} контекст выполнения целевой функции */
+            context: window,
+            /** @type {Array} аргументы выполнения целевой функции */
+            args: [],
+            /**
+             * Функция заврешения и обработки результата
+             * @function
+             * @param  {object} result резульаты выполнения
+             */
+            end: function(result) {
+                console.log("Run %s [%d am]: %d ms",
+                    result.name,
+                    result.amount,
+                    result.tend.getTime() - result.tbeg.getTime()
+                );
+            }
+        }, options);
+
+        /** @type {Date} время запуска */
+        attrs.tbeg = new Date();
+        // выполнить целевую функцию
+        for (var i = 0; i != attrs.amount; ++i) {
+            func.apply(options.context, options.args);
+        }
+        /** @type {Date} время остановки */
+        attrs.tend = new Date();
+
+        // обработка результата
+        if (typeof options.end === "function") {
+            options.end(attrs);
+        }
+        return attrs;
     };
 
 }();

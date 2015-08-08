@@ -16,6 +16,7 @@
         settings = E.Object.extend({
             /**
              * Функция сравнения по умолчанию
+             * @function
              * @param  {Mixed} left левый элемент
              * @param  {Mixed} right правый элемент
              * @return {integer} результат сравнения (-1|0|1)
@@ -25,20 +26,24 @@
                 if (left < right) return -1;
                 return 0;
             }
-        }, settings, true);
+        }, settings);
         /**
          * Вернуть функцию сортировки
          * @param  {array} array целевой массив
-         * @param  {function} compare функция сравнения
-         * @param  {boolean} reverse реверс
-         * @return {array} отсортированный массив
+         * @param  {function|boolean} arg2 функция сравнения или реверс
+         * @return {boolean|undefined} arg3 реверс
          */
-        return function(array, compare, reverse) {
-            // используемая функция сравнения
-            compare = typeof compare === "function"
-                ? compare : settings.compare;
-            // сортировка
-            algorithm(array, compare);
+        return function(array, arg2, arg3) {
+            // заданная функция сортировки
+            var compare = typeof arg2 === "function"
+                ? arg2 : settings.compare;
+            // реверс порядка
+            var reverse = arguments.length == 2 && typeof arg2 !== "function"
+                ? !!arg2 : !!arg3;
+            // сортировка с использованием реверса (при необходимости)
+            algorithm(array, function(arg1, arg2) {
+                return compare.apply(this, reverse ? Array.prototype.reverse.call(arguments) : arguments);
+            });
             // вернуть отсортированный массив
             return array;
         }
