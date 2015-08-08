@@ -1,12 +1,17 @@
 # Excalibur
 *Just another javascript-native library*
 
++ [excalibur[-core]](#excalibur-core)
++ [excalibur-array-sort](#excalibur-array-sort)
++ [excalibur-math-sequence](#excalibur-math-sequence)
+
 ## excalibur[-core]
+[source](src/js/excalibur.js) [minified](build/js/excalibur.js)
+
 Главный модуль библиотеки, ядро. Все остальные модули дополняют его функционал; содержит базовые методы работы с массивами, объектами, функциями и прочими элементами нативного JavaScript.
 ```html
 <script src="js/excalibur.js"></script>
 ```
-[source](src/js/excalibur.js)
 Excalibur (E)
 + Object
   - extend
@@ -28,12 +33,13 @@ Excalibur (E)
   - run
 
 ## excalibur-array-sort
+[source](src/js/excalibur-array-sort.js) [minified](src/js/excalibur-array-sort.js)
+
 Модуль реализаций различных сортировок для массивов.
 ```html
 <script src="js/excalibur.js"></script>
 <script src="js/excalibur-array-sort.js"></script>
 ```
-[source](src/js/excalibur-array-sort.js)
 E.Array.sort
 + bubble
 + cocktail
@@ -41,12 +47,13 @@ E.Array.sort
 + quick
 
 ## excalibur-math-sequence
+[source](src/js/excalibur-math-sequence.js) [minified](src/js/excalibur-math-sequence.js)
+
 Модуль различных числовых последовательностей.
 ```html
 <script src="js/excalibur.js"></script>
 <script src="js/excalibur-math-sequence.js"></script>
 ```
-[source](src/js/excalibur-math-sequence.js)
 E.Math.sequence
 + fibonacci
 + prime
