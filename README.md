@@ -6,7 +6,8 @@
 ```html
 <script src="js/excalibur.js"></script>
 ```
-Excalibur (E) [source](src/js/excalibur.js)
+[source](src/js/excalibur.js)
+Excalibur (E)
 + Object
   - extend
 + Function
@@ -29,9 +30,11 @@ Excalibur (E) [source](src/js/excalibur.js)
 ## excalibur-array-sort
 Модуль реализаций различных сортировок для массивов.
 ```html
+<script src="js/excalibur.js"></script>
 <script src="js/excalibur-array-sort.js"></script>
 ```
-E.Array.sort [source](src/js/excalibur-array-sort.js)
+[source](src/js/excalibur-array-sort.js)
+E.Array.sort
 + bubble
 + cocktail
 + gnome
@@ -40,8 +43,10 @@ E.Array.sort [source](src/js/excalibur-array-sort.js)
 ## excalibur-math-sequence
 Модуль различных числовых последовательностей.
 ```html
+<script src="js/excalibur.js"></script>
 <script src="js/excalibur-math-sequence.js"></script>
 ```
-E.Math.sequence [source](src/js/excalibur-math-sequence.js)
+[source](src/js/excalibur-math-sequence.js)
+E.Math.sequence
 + fibonacci
 + prime
