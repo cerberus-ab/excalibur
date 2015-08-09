@@ -84,6 +84,40 @@
     };
 
     /**
+     * Вычислить сумму элементов массива
+     * @param  {Array} array целевой массив
+     * @param  {function} adder функция сложения
+     * @param  {Mixed} initial начальное значение (Default: 0)
+     * @return {Mixed} результат сложения
+     */
+    _array.sum = function(array, adder, initial) {
+        if (typeof adder !== "function") {
+            adder = function(previous, current, index, array) {
+                return previous + (typeof current !== "number" ? 0 : current);
+            }
+        }
+        initial = initial || 0;
+        return array.reduce(adder, initial);
+    };
+
+    /**
+     * Вычислить произведение элементов массива
+     * @param  {Array} array целевой массив
+     * @param  {function} multer функция произведения
+     * @param  {Mixed} initial начальное значение (Default: 1)
+     * @return {Mixed} результат сложения
+     */
+    _array.mult = function(array, multer, initial) {
+        if (typeof multer !== "function") {
+            multer = function(previous, current, index, array) {
+                return previous * (typeof current !== "number" ? 1 : current);
+            }
+        }
+        initial = initial || 1;
+        return array.reduce(multer, initial);
+    };
+
+    /**
      * Создание массива
      * @param  {integer} length размер массива
      * @param  {function} creator функция создания элементов
