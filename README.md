@@ -78,6 +78,8 @@ E.Array.sort[name](array, compare[, reverse]);
 ```javascript
 E.Math.sequence
 ```
++ arithmetic
++ geometric
 + fibonacci
 + prime
 
