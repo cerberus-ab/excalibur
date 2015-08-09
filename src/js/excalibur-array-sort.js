@@ -22,8 +22,8 @@
              * @return {integer} результат сравнения (-1|0|1)
              */
             compare: function(left, right) {
-                if (left > right) return 1;
-                if (left < right) return -1;
+                if (left < right) return 1;
+                if (left > right) return -1;
                 return 0;
             }
         }, settings);
@@ -41,11 +41,9 @@
             var reverse = arguments.length == 2 && typeof arg2 !== "function"
                 ? !!arg2 : !!arg3;
             // сортировка с использованием реверса (при необходимости)
-            algorithm(array, function(arg1, arg2) {
-                return compare.apply(this, reverse ? Array.prototype.reverse.call(arguments) : arguments);
-            });
+            algorithm(array, compare);
             // вернуть отсортированный массив
-            return array;
+            return reverse ? array : array.reverse();
         }
     }
 
