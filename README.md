@@ -24,6 +24,8 @@ Excalibur = E
   - Counter
 + Array
   - swap
+  - sum
+  - mult
   - create
 + Math
   - isInteger
