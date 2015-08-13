@@ -189,19 +189,66 @@
      * Получить простые делители целого числа
      * @deprecated
      * @param  {integer} numb целое число
+     * @param  {boolean} uniq без повторений делителей (Default: false)
      * @return {array} набор делителей (кроме себя)
      */
-    _math.getPrimeDividers = function(numb) {
+    _math.getPrimeDividers = function(numb, uniq) {
         var div = 2,
             dividers = [1];
         while (numb > 1) {
             if (_math.isPrime(div) && numb % div == 0) {
-                dividers.push(div);
+                if (!uniq || dividers.indexOf(div) < 0) {
+                    dividers.push(div);
+                }
                 numb /= div;
             }
             else div++;
         }
         return dividers;
+    };
+
+    /**
+     * Получить собственные делители числа
+     * @deprecated
+     * @param  {integer} numb число
+     * @param  {boolean} isprime только простые (Default: false)
+     * @return {array} набор собственных делителей
+     */
+    _math.getDividers = function(numb, isprime) {
+        var div = 2,
+            dividers = [1];
+        // только простые
+        if (isprime) {
+            while (numb > 1) {
+                if (numb % div == 0 && _math.isPrime(div)) {
+                    if (dividers.indexOf(div) < 0) {
+                        dividers.push(div);
+                    }
+                    numb /= div;
+                }
+                else div++;
+            }
+        }
+        // все собственные делители
+        else {
+            for (var max = numb/2; div <= max; div++) {
+                if (numb % div == 0) {
+                    dividers.push(div);
+                }
+            }
+        }
+        // вернуть
+        return dividers;
+    };
+
+    /**
+     * Проверить является ли целое число совершенным
+     * @param  {number}  numb число
+     * @return {boolean} true/false
+     */
+    _math.isPerfect = function(numb) {
+        return _math.isInteger(numb) && numb > 0
+            && _array.sum(_math.getDividers(numb)) == numb;
     };
 
     /**
