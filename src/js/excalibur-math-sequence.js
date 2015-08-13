@@ -70,5 +70,30 @@
         }
     }());
 
+    /**
+     * Получить последовательность чисел Мерсенна (не простые)
+     * @param  {integer} numb индекс требуемого числа
+     * @param  {boolean:false} all получить всю последовательность
+     * @return {number|Array} требуемое число или вся последовательность
+     */
+    _sequence.mersenne = (function(){
+        var mers = [];
+        /**
+         * Функция формирование числа
+         * @param  {integer} index индекс числа
+         * @return {number} число с этим индексом
+         */
+        function getNumber(index) {
+            return E.Math.pow(2, index) - 1;
+        }
+        // вернуть функцию
+        return function(numb, all) {
+            for (var len = mers.length; len < numb; ++len) {
+                mers.push(getNumber(len + 1));
+            }
+            return all ? mers.slice(0, numb) : mers[numb -1];
+        }
+    }());
+
 
 }(Excalibur);

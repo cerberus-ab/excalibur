@@ -159,6 +159,9 @@
      */
     var _math = E.Math = {};
 
+    /** @type {number} золотое сечение (~1.618) */
+    _math.GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
+
     /**
      * Проверить является ли число целым
      * @param  {number} numb число
@@ -180,6 +183,25 @@
             if (numb % i == 0) return false;
         }
         return true;
+    };
+
+    /**
+     * Получить простые делители целого числа
+     * @deprecated
+     * @param  {integer} numb целое число
+     * @return {array} набор делителей (кроме себя)
+     */
+    _math.getPrimeDividers = function(numb) {
+        var div = 2,
+            dividers = [1];
+        while (numb > 1) {
+            if (_math.isPrime(div) && numb % div == 0) {
+                dividers.push(div);
+                numb /= div;
+            }
+            else div++;
+        }
+        return dividers;
     };
 
     /**
