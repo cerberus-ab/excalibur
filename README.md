@@ -28,8 +28,10 @@ Excalibur = E
   - mult
   - create
 + Math
+  - GOLDEN_RATIO
   - isInteger
   - isPrime
+  - getPrimeDividers
   - getRandomInt
   - factorial
   - pow
@@ -88,6 +90,7 @@ E.Math.sequence
 + geometric
 + fibonacci
 + prime
++ mersenne
 
 ## soon
 + E.Array.sort (module)
