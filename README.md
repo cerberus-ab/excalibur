@@ -4,6 +4,7 @@
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-array-sort](#excalibur-array-sort)
 + [excalibur-math-sequence](#excalibur-math-sequence)
++ [excalibur-math-equation](#excalibur-math-equation)
 + [soon](#soon)
 
 ## excalibur[-core]
@@ -31,7 +32,8 @@ Excalibur = E
   - GOLDEN_RATIO
   - isInteger
   - isPrime
-  - getPrimeDividers
+  - getDividers
+  - isPerfect
   - getRandomInt
   - factorial
   - pow
@@ -91,6 +93,20 @@ E.Math.sequence
 + fibonacci
 + prime
 + mersenne
+
+## excalibur-math-equation
+[source](src/js/excalibur-math-equation.js)
+
+Модуль численного решения уравнений.
+```html
+<script src="js/excalibur.js"></script>
+<script src="js/excalibur-math-equation.js"></script>
+```
+**Пространство имен**
+```javascript
+E.Math.equation
+```
++ dichotomy
 
 ## soon
 + E.Array.sort (module)
