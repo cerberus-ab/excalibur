@@ -137,15 +137,25 @@ E.Math.equation.dichotomy(func[, range, options]);
 
 **Примеры**
 
-Поиск корня уравнения _x^3 - 3x + 1 = 0_ на отрезке [0,1].
+Поиск корня уравнения _sin(2x) - ln(x) - 1_ на отрезке [0,1]. Корень имеется и он единственный.
 ```shell
 $ E.Math.equation.dichotomy(function(arg) { 
-  return Math.pow(arg, 3) - 3 * arg + 1; 
+  return Math.sin(x * arg) - Math.log(arg) - 1; 
 }, { 
   beg: 0., 
   end: 1. 
 });
-> 0.34765625
+> 0.9482421875
+```
+Поиск корня этого же уравнения на отрезке [1,2]. Корня нет.
+```shell
+$ E.Math.equation.dichotomy(function(arg) { 
+  return Math.sin(x * arg) - Math.log(arg) - 1; 
+}, { 
+  beg: 1., 
+  end: 2. 
+});
+> Uncaught RangeError: Maximum iterations count exceeded
 ```
 
 ## excalibur-network
