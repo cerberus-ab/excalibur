@@ -141,7 +141,7 @@ E.Math.equation.dichotomy(func, range[, options]);
 Поиск корня уравнения _sin(2x) - ln(x) - 1_ на отрезке [0,1]. Корень имеется и он единственный.
 ```shell
 $ E.Math.equation.dichotomy(function(arg) { 
-  return Math.sin(x * arg) - Math.log(arg) - 1; 
+  return Math.sin(2 * arg) - Math.log(arg) - 1; 
 }, { 
   beg: 0., 
   end: 1. 
@@ -151,7 +151,7 @@ $ E.Math.equation.dichotomy(function(arg) {
 Поиск корня этого же уравнения на отрезке [1,2]. Корня нет.
 ```shell
 $ E.Math.equation.dichotomy(function(arg) { 
-  return Math.sin(x * arg) - Math.log(arg) - 1; 
+  return Math.sin(2 * arg) - Math.log(arg) - 1; 
 }, { 
   beg: 1., 
   end: 2. 
