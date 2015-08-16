@@ -135,10 +135,10 @@ E.Networks
   - [isMAC](#estringtestismac)
   - [isMask](#estringtestismask)
 + E.Network
-  - getCRC16
-  - getNetworkAddress
+  - [getCRC16](#enetworkgetcrc16)
+  - [getNetworkAddress](#enetworkgetnetworkaddress)
 
-#### E.String.test.isIPv4
+##### E.String.test.isIPv4
 
 **Описание**
 
@@ -148,9 +148,9 @@ E.Networks
 ```javascript
 E.String.test.isIPv4(str);
 ```
-+ `str`: Проверяемая строка
++ `str`: Проверяемая строка.
 
-#### E.String.test.isMAC
+##### E.String.test.isMAC
 
 **Описание**
 
@@ -160,9 +160,9 @@ E.String.test.isIPv4(str);
 ```javascript
 E.String.test.isMAC(str);
 ```
-+ `str`: Проверяемая строка
++ `str`: Проверяемая строка.
 
-#### E.String.test.isMask
+##### E.String.test.isMask
 
 **Описание**
 
@@ -172,4 +172,29 @@ E.String.test.isMAC(str);
 ```javascript
 E.String.test.isMask(str);
 ```
-+ `str`: Проверяемая строка
++ `str`: Проверяемая строка.
+
+##### E.Network.getCRC16
+
+**Описание**
+
+Вычисление контрольной суммы HEX-строки с использованием алгоритма CRC16. Если длина целевой строки не кратна 4, то до нужной длины будут дописаны нули в конец. 
+
+**Синтаксис**
+```javascript
+E.Network.getCRC16(hexstr);
+```
++ `hexstr`: Целевая hex-строка.
+
+##### E.Network.getNetworkAddress
+
+**Описание**
+
+Получить адрес подсети путем сложения (логическое И) IPv4 адреса хоста и используемой маски подсети.
+
+**Синтаксис**
+```javascript
+E.Network.getNetworkAddress(addr, mask);
+```
++ `addr`: IPv4 адрес хоста.
++ `mask`: Используемая маска подсети.
