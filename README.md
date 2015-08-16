@@ -131,9 +131,9 @@ E.String.test
 E.Networks
 ```
 + E.String.test
-  - isIPv4
-  - isMAC
-  - isMask
+  - [isIPv4](#estringtestisipv4)
+  - [isMAC](#estringtestismac)
+  - [isMask](#estringtestismask)
 + E.Network
   - getCRC16
   - getNetworkAddress
@@ -147,5 +147,29 @@ E.Networks
 **Синтаксис**
 ```javascript
 E.String.test.isIPv4(str);
+```
++ `str`: Проверяемая строка
+
+#### E.String.test.isMAC
+
+**Описание**
+
+Проверить является ли переданная строка записью MAC адреса. Возвращает true/false. Проверка регистронезависимая.
+
+**Синтаксис**
+```javascript
+E.String.test.isMAC(str);
+```
++ `str`: Проверяемая строка
+
+#### E.String.test.isMask
+
+**Описание**
+
+Проверить является ли переданная строка записью маски подсети. В случае успеха функция возвращает размер маски, иначе false.
+
+**Синтаксис**
+```javascript
+E.String.test.isMask(str);
 ```
 + `str`: Проверяемая строка
