@@ -115,7 +115,38 @@ E.Math.sequence
 ```javascript
 E.Math.equation
 ```
-+ dichotomy
++ [dichotomy](#emathequationdichotomy)
+
+#### E.Math.equation.dichotomy
+
+**Описание**
+
+Численное решение уравнения (нахождение корня) методом дихотомии или половинного деления. Правильное решение возможно лишь в том случае, если известно, что на заданном интервале имеется корень и он является единственным. Соответственно, для нахождения корней уравнений большого порядка, сначала необходимо отделить их по отрезкам. Возвращает корень, полученный с заданной точностью.
+
+**Синтаксис**
+```javascript
+E.Math.equation.dichotomy(func[, range, options]);
+```
++ `func`: Целевая функция. 
++ `range`: Диапазон поиска.
+  - `beg`: Левая граница диапазона (Default: -10).
+  - `end`: Правая граница диапазона (Default: 10).
++ `options`: Настройки выполнения (Optional).
+  - `max`: максимальное число итераций (Default: 100).
+  - `eps`: требуемая точность (Default: 0.001).
+
+**Примеры**
+
+Поиск корня уравнения _x^3 - 3x + 1 = 0_ на отрезке [0,1].
+```shell
+$ E.Math.equation.dichotomy(function(arg) { 
+  return Math.pow(arg, 3) - 3 * arg + 1; 
+}, { 
+  beg: 0., 
+  end: 1. 
+});
+> 0.34765625
+```
 
 ## excalibur-network
 [source](src/js/excalibur-network.js)
@@ -138,7 +169,7 @@ E.Networks
   - [getCRC16](#enetworkgetcrc16)
   - [getNetworkAddress](#enetworkgetnetworkaddress)
 
-##### E.String.test.isIPv4
+#### E.String.test.isIPv4
 
 **Описание**
 
@@ -150,7 +181,7 @@ E.String.test.isIPv4(str);
 ```
 + `str`: Проверяемая строка.
 
-##### E.String.test.isMAC
+#### E.String.test.isMAC
 
 **Описание**
 
@@ -162,7 +193,7 @@ E.String.test.isMAC(str);
 ```
 + `str`: Проверяемая строка.
 
-##### E.String.test.isMask
+#### E.String.test.isMask
 
 **Описание**
 
@@ -174,7 +205,7 @@ E.String.test.isMask(str);
 ```
 + `str`: Проверяемая строка.
 
-##### E.Network.getCRC16
+#### E.Network.getCRC16
 
 **Описание**
 
@@ -186,7 +217,7 @@ E.Network.getCRC16(hexstr);
 ```
 + `hexstr`: Целевая hex-строка.
 
-##### E.Network.getNetworkAddress
+#### E.Network.getNetworkAddress
 
 **Описание**
 
