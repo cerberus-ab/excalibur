@@ -5,7 +5,7 @@
 + [excalibur-array-sort](#excalibur-array-sort)
 + [excalibur-math-sequence](#excalibur-math-sequence)
 + [excalibur-math-equation](#excalibur-math-equation)
-+ [soon](#soon)
++ [excalibur-network](#excalibur-network)
 
 ## excalibur[-core]
 [source](src/js/excalibur.js)
@@ -39,6 +39,15 @@ Excalibur = E
   - pow
 + Class
   - extend
++ String
+  - regTest
+  - toCamelCase
+  - toUnderlineCase
+  - rmTags
+  - rmSpaces
+  - toFixedString
+  - test
+    * isHEX
 + Performance
   - run
 
@@ -108,14 +117,23 @@ E.Math.equation
 ```
 + dichotomy
 
-## soon
-+ E.Array.sort (module)
-  - insert
-  - selection
-+ E.String (core)
-+ E.String.regexp (module)
-+ E.Math.binary (module)
-+ E.Math.big (module)
-+ E.Pattern (core)
-+ E.Coding (core)
-+ E.Coding.base64 (module)
+## excalibur-network
+[source](src/js/excalibur-network.js)
+
+Модуль работы с атрибутикой компьютерной сети.
+```html
+<script src="js/excalibur.js"></script>
+<script src="js/excalibur-network.js"></script>
+```
+**Пространство имен**
+```javascript
+E.String.test
+E.Networks
+```
++ E.String.test
+  - isIPv4
+  - isMAC
+  - isMask
++ E.Network
+  - getCRC16
+  - getNetworkAddress
