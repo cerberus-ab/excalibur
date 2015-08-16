@@ -186,28 +186,6 @@
     };
 
     /**
-     * Получить простые делители целого числа
-     * @deprecated
-     * @param  {integer} numb целое число
-     * @param  {boolean} uniq без повторений делителей (Default: false)
-     * @return {array} набор делителей (кроме себя)
-     */
-    _math.getPrimeDividers = function(numb, uniq) {
-        var div = 2,
-            dividers = [1];
-        while (numb > 1) {
-            if (_math.isPrime(div) && numb % div == 0) {
-                if (!uniq || dividers.indexOf(div) < 0) {
-                    dividers.push(div);
-                }
-                numb /= div;
-            }
-            else div++;
-        }
-        return dividers;
-    };
-
-    /**
      * Получить собственные делители числа
      * @deprecated
      * @param  {integer} numb число
@@ -324,6 +302,92 @@
         Child.prototype = Object.create(Parent.prototype);
         Child.prototype.constructor = Child;
         Child.superclass = Parent.prototype;
+    };
+
+    /**
+     * Работа со строками ======================================================
+     *
+     */
+    var _string = E.String = {};
+
+    /** @type {object} различные проверки целевой строки */
+    _string.test = {};
+
+    /**
+     * Проверка строки регулярным выражением
+     * @param  {string} str целевая строка
+     * @param  {string} regular регулярное выражение
+     * @return {boolean} true/false
+     */
+    _string.regTest = function(str, regular) {
+        return regular ? new RegExp(regular).test(str) : true;
+    };
+
+    /**
+     * Конвертировать строку в Camel Case
+     * @param  {string} str целевая строка
+     * @return {string} строка в Camel Case
+     */
+    _string.toCamelCase = function(str) {
+        return str.replace(/-[a-z]/g, function(g) {
+            return g[1].toUpperCase();
+        });
+    };
+
+    /**
+     * Конвертировать строку в Underline Case
+     * @param  {string} str целевая строка
+     * @param  {boolean} lowercase нижний регистр (Default: true)
+     * @return {string} строка в Camel Case
+     */
+    _string.toUnderlineCase = function(str, lowercase) {
+        str = str.replace(/\s+/g, "_");
+        return typeof lowercase === "undefined" || lowercase
+            ? str.toLowerCase() : str;
+    };
+
+    /**
+     * Удалить теги из текста
+     * @param  {string} text целевой текст
+     * @return {string} текст без тегов
+     */
+    _string.rmTags = function(text) {
+        return text.replace(/<\/?[^>]+>/g, "");
+    };
+
+    /**
+     * Удалить пробельные символы из текста
+     * @param  {string} text целевой текст
+     * @return {string} текст без пробельных символов
+     */
+    _string.rmSpaces = function(text) {
+        return text.replace(/\s/g, "");
+    };
+
+    /**
+     * Получить запись объекта с фиксированной длиной
+     * @param  {Mixed} target целевой объект
+     * @param  {number:integer} length требуемая длина
+     * @param  {string} filler заполняющий символ (Default: ' ')
+     * @return {string} строковое представление с фиксированной длиной
+     */
+    _string.toFixedString = function(target, length, filler) {
+        var str = target.toString(),
+            len = str.length,
+            filler = typeof filler !== "undefined" ? filler[0] : ' ';
+
+        return len > length
+            ? str.substring(0, length)
+            : Array(length - len + 1).join(filler) + str;
+    };
+
+    /**
+     * Является ли строка шестнадцатиричной записью
+     * @param  {string} str целевая строка
+     * @return {boolean} true/false
+     */
+    _string.test.isHEX = function(str) {
+        return _string.regTest(str, "^[0-9a-fA-F]*$");
     };
 
     /**
