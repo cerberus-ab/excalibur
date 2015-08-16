@@ -137,3 +137,15 @@ E.Networks
 + E.Network
   - getCRC16
   - getNetworkAddress
+
+#### E.String.test.isIPv4
+
+**Описание**
+
+Проверить является ли переданная строка десятичной записью IPv4 адреса. Возвращает true/false. 
+
+**Синтаксис**
+```javascript
+E.String.test.isIPv4(str);
+```
++ `str`: Проверяемая строка
