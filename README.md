@@ -48,6 +48,7 @@ Excalibur = E
   - toFixedString
   - test
     * isHEX
+    * isBIN
 + Performance
   - run
 
@@ -125,7 +126,7 @@ E.Math.equation
 
 **Синтаксис**
 ```javascript
-E.Math.equation.dichotomy(func[, range, options]);
+E.Math.equation.dichotomy(func, range[, options]);
 ```
 + `func`: Целевая функция. 
 + `range`: Диапазон поиска.
