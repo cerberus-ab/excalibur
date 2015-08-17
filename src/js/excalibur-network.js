@@ -30,6 +30,16 @@
     };
 
     /**
+     * Является ли строка записью порта
+     * @param  {string}  str целевая строка
+     * @return {boolean} true/false
+     */
+    _string.test.isPort = function(str) {
+        str -= 0;
+        return E.Math.isInteger(str) && str >= 0 && str <= 65535;
+    };
+
+    /**
      * Является ли строка корректной записью маски подсети (IPv4)
      * @param  {string} str целевая строка
      * @return {number|boolean:false} размер маски или false

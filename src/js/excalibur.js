@@ -12,11 +12,11 @@
      * Наложить свойства одного объекта на другой
      * @param  {object} dst целевой объект
      * @param  {object} src накладываемый объект
-     * @param  {boolean} deep глубокое наложение
+     * @param  {boolean} deep глубокое наложение (Default: false)
      * @return {object} результирующий целевой объект
      */
     _object.extend = function(dst, src, deep) {
-        for (var property in src) {
+        for (var property in src) if (src.hasOwnProperty(property)) {
             if (deep && src[property] && src[property].constructor === Object) {
                 dst[property] = dst[property] || {};
                 Object.extend(dst[property], src[property]);
@@ -25,6 +25,57 @@
             }
         }
         return dst;
+    };
+
+    /**
+     * Получить перечень собственных свойств объекта
+     * @param  {object} obj целевой объект
+     * @return {array} набор свойств
+     */
+    _object.getOwnProperties = function(obj) {
+        var arr = [];
+        for (var property in obj) if (obj.hasOwnProperty(property)) {
+            arr.push(property);
+        }
+        return arr;
+    };
+
+    /**
+     * Получить перечень значений собственных свойств объекта
+     * @param  {object} obj целевой объект
+     * @return {array} набор значений
+     */
+    _object.getOwnValues = function(obj) {
+        var arr = [];
+        for (var property in obj) if (obj.hasOwnProperty(property)) {
+            arr.push(obj[property]);
+        }
+        return arr;
+    };
+
+    /**
+     * Копирование объекта
+     * @param  {object} obj целевой объект
+     * @param  {boolean} deep глубокое наложение (Default: false)
+     * @return {object} копия объекта
+     */
+    _object.copy = function(obj, deep) {
+        return _object.extend({}, obj, deep);
+    };
+
+    /**
+     * Вернуть сырую копию объекта,
+     * то есть обнуленные собственные свойства объекта
+     * @param  {object} obj целевой объект
+     * @param  {Mixed} value используемое значение для свойств (Default: undefined)
+     * @return {object} сырая копия объекта
+     */
+    _object.copyRaw = function(obj, value) {
+        var raw = {};
+        _object.getOwnProperties(obj).forEach(function(property) {
+            raw[property] = value;
+        });
+        return raw;
     };
 
     /**
@@ -388,6 +439,15 @@
      */
     _string.test.isHEX = function(str) {
         return _string.regTest(str, "^[0-9a-fA-F]*$");
+    };
+
+    /**
+     * Является ли строка бинарной записью
+     * @param  {string} str целевая строка
+     * @return {boolean} true/false
+     */
+    _string.test.isBIN = function(str) {
+        return _string.regTest(str, "^[01]*$");
     };
 
     /**
