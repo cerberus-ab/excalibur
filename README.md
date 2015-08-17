@@ -6,6 +6,7 @@
 + [excalibur-math-sequence](#excalibur-math-sequence)
 + [excalibur-math-equation](#excalibur-math-equation)
 + [excalibur-network](#excalibur-network)
++ [excalibur-patterns](#excalibur-patterns)
 
 ## excalibur[-core]
 [source](src/js/excalibur.js)
@@ -20,6 +21,10 @@ Excalibur = E
 ```
 + Object
   - extend
+  - getOwnProperties
+  - getOwnValues
+  - copy
+  - copyRaw
 + Function
   - getName
   - Counter
@@ -176,6 +181,7 @@ E.Networks
   - [isIPv4](#estringtestisipv4)
   - [isMAC](#estringtestismac)
   - [isMask](#estringtestismask)
+  - isPort
 + E.Network
   - [getCRC16](#enetworkgetcrc16)
   - [getNetworkAddress](#enetworkgetnetworkaddress)
@@ -240,3 +246,21 @@ E.Network.getNetworkAddress(addr, mask);
 ```
 + `addr`: IPv4 адрес хоста.
 + `mask`: Используемая маска подсети.
+
+## excalibur-patterns
+[source](src/js/excalibur-math-sequence.js)
+
+Модуль реализации различных шаблонов проектирования. Некоторые реализации представлены как примеры и не должны использоваться в рабочем коде.
+```html
+<script src="js/excalibur.js"></script>
+<script src="js/excalibur-patterns.js"></script>
+```
+**Пространство имен**
+```javascript
+E.Patterns
+```
++ порождающие
+  - Singleton
++ структурные
++ поведенческие
+  - Observer
