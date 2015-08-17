@@ -248,7 +248,7 @@ E.Network.getNetworkAddress(addr, mask);
 + `mask`: Используемая маска подсети.
 
 ## excalibur-patterns
-[source](src/js/excalibur-math-sequence.js)
+[source](src/js/excalibur-patterns.js)
 
 Модуль реализации различных шаблонов проектирования. Некоторые реализации представлены как примеры и не должны использоваться в рабочем коде.
 ```html
