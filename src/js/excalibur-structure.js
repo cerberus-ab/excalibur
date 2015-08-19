@@ -14,11 +14,11 @@
     /**
      * @class Узел бинарного дерева
      * @param  {number} key ключ
-     * @param  {object} data данные узла
+     * @param  {object} value данные узла
      */
-    _structure.BinaryTreeNode = function BinaryTreeNode(key, data) {
+    function BinaryTreeNode(key, value) {
         this.key = key;
-        this.data = typeof data !== "undefined" ? data : null;
+        this.value = typeof value !== "undefined" ? value : null;
         // ссылки на левый и правый узел
         this.left = null;
         this.right = null;
@@ -90,7 +90,7 @@
      * Получить количество элементов в дереве
      * @return {number:integer} количество элементов
      */
-    _structure.BinaryTree.prototype.size = function() {
+    _structure.BinaryTree.prototype.length = function() {
         var length = 0;
         this.traverse(function(node) {
             length++;
@@ -116,10 +116,10 @@
      * @param  {string:[inorder, preorder, postorder]} order порядок обхода (Default: inorder)
      * @return {array} массив элементов дерева
      */
-    _structure.BinaryTree.prototype.toArray = function(order) {
+    _structure.BinaryTree.prototype.values = function(order) {
         var array = [];
         this.traverse(function(node) {
-            array.push(node.data);
+            array.push(node.value);
         }, order);
         return array;
     };
@@ -133,12 +133,12 @@
      * @class Узел бинарного дерева поиска
      * @extends {BinaryTreeNode}
      * @param  {number} key ключ
-     * @param  {object} data данные узла
+     * @param  {object} value данные узла
      */
-    _structure.BinarySearchTreeNode = function BinarySearchTreeNode(key, data) {
-        BinarySearchTreeNode.superclass.constructor.call(this, key, data);
+    function BinarySearchTreeNode(key, value) {
+        BinarySearchTreeNode.superclass.constructor.call(this, key, value);
     };
-    E.Class.extend(_structure.BinarySearchTreeNode, _structure.BinaryTreeNode);
+    E.Class.extend(BinarySearchTreeNode, BinaryTreeNode);
 
     /**
      * @class Бинарное дерево поиска
@@ -168,17 +168,17 @@
                 found = true;
             }
         }
-        return !found ? undefined : current.data;
+        return !found ? undefined : current.value;
     };
 
     /**
      * Добавить новый узел в дерево
      * @param {number} key ключ
-     * @param {object} data данные узла
+     * @param {object} value данные узла
      */
-    _structure.BinarySearchTree.prototype.insert = function(key, data) {
+    _structure.BinarySearchTree.prototype.insert = function(key, value) {
         // инициализация нового узла
-        var node = new _structure.BinarySearchTreeNode(key, data);
+        var node = new BinarySearchTreeNode(key, value);
         // если корневой отсутствует, то добавить как корневой
         if (this._root === null){
             this._root = node;
@@ -208,7 +208,7 @@
                 }
                 // иначе изменить данные текущего узла
                 else {
-                    current.data = node.data;
+                    current.value = node.value;
                     break;
                 }
             }
