@@ -7,11 +7,128 @@
     var _structure = E.Structure = {};
 
     /**
-     * @class Бинарное дерево поиска
+     * @class Бинарное дерево ==================================================
      */
-    _structure.BinarySearchTree = function() {
+    _structure.BinaryTree = function() {
         this._root = null;
     };
+
+    /**
+     * Инициализация нового узла
+     * @param  {number} key ключ
+     * @param  {object} data данные узла
+     * @return {object} новый узел дерева
+     */
+    _structure.BinaryTree.prototype.initNode = function(key, data) {
+        return {
+            key: key,
+            data: typeof data !== "undefined" ? data : null,
+            left: null,
+            right: null
+        };
+    };
+
+    /**
+     * Обойти все узлы дерева
+     * @param  {function} callback функция обратного вызова
+     * @param  {string:[inorder, preorder, postorder]} order порядок обхода (Default: inorder)
+     */
+    _structure.BinaryTree.prototype.traverse = (function() {
+        /**
+         * Рекурсивные функции обхода дерева
+         * @param {object} node узел дерева
+         * @param {function} callback функция обратного вызова
+         */
+        var traverse_order = {
+            // вершина, левое поддерево, правое поддерево
+            preorder: function traverse(node, callback) {
+                if (node) {
+                    callback.call(this, node);
+                    if (node.left !== null) {
+                        traverse(node.left, callback);
+                    }
+                    if (node.right !== null) {
+                        traverse(node.right, callback);
+                    }
+                }
+            },
+            // левое поддерево, вершина, правое поддерево
+            inorder: function traverse(node, callback) {
+                if (node) {
+                    if (node.left !== null) {
+                        traverse(node.left, callback);
+                    }
+                    callback.call(this, node);
+                    if (node.right !== null) {
+                        traverse(node.right, callback);
+                    }
+                }
+            },
+            // левое поддерево, правое поддерево, вершина
+            postorder: function traverse(node, callback) {
+                if (node) {
+                    if (node.left !== null) {
+                        traverse(node.left, callback);
+                    }
+                    if (node.right !== null) {
+                        traverse(node.right, callback);
+                    }
+                    callback.call(this, node);
+                }
+            }
+        };
+        // вернуть метод класса
+        return function(callback, order) {
+            traverse_order[order || "inorder"](this._root, callback);
+        }
+    })();
+
+    /**
+     * Получить количество элементов в дереве
+     * @return {number:integer} количество элементов
+     */
+    _structure.BinaryTree.prototype.size = function() {
+        var length = 0;
+        this.traverse(function(node) {
+            length++;
+        });
+        return length;
+    };
+
+    /**
+     * Получить массив ключей дерева
+     * @param  {string:[inorder, preorder, postorder]} order порядок обхода (Default: inorder)
+     * @return {array} массив ключей дерева
+     */
+    _structure.BinaryTree.prototype.keys = function(order) {
+        var array = [];
+        this.traverse(function(node) {
+            array.push(node.key);
+        }, order);
+        return array;
+    };
+
+    /**
+     * Преобразовать дерево в массив
+     * @param  {string:[inorder, preorder, postorder]} order порядок обхода (Default: inorder)
+     * @return {array} массив элементов дерева
+     */
+    _structure.BinaryTree.prototype.toArray = function(order) {
+        var array = [];
+        this.traverse(function(node) {
+            array.push(node.data);
+        }, order);
+        return array;
+    };
+
+    /**
+     * @class Бинарное дерево поиска ===========================================
+     * @extends {BinaryTree}
+     */
+    _structure.BinarySearchTree = function() {
+        _structure.BinarySearchTree.superclass.constructor.call(this);
+    };
+    E.Class.extend(_structure.BinarySearchTree, _structure.BinaryTree);
 
     /**
      * Поиск узла дерева
@@ -19,7 +136,7 @@
      * @return {object} данные узла
      */
     _structure.BinarySearchTree.prototype.find = function(key) {
-        var found,
+        var found = false,
             current = this._root;
         while (!found && current) {
             if (key < current.key) {
@@ -29,10 +146,10 @@
                 current = current.right;
             }
             else {
-                found = current.data;
+                found = true;
             }
         }
-        return found;
+        return !found ? undefined : current.data;
     };
 
     /**
@@ -42,12 +159,7 @@
      */
     _structure.BinarySearchTree.prototype.insert = function(key, data) {
         // инициализация нового узла
-        var node = {
-            key: key,
-            data: typeof data !== "undefined" ? data : null,
-            left: null,
-            right: null
-        };
+        var node = this.initNode(key, data);
         // если корневой отсутствует, то добавить как корневой
         if (this._root === null){
             this._root = node;
@@ -108,154 +220,40 @@
         }
         // если узел найден, то продолжить
         if (found) {
-            // количество детей
-            var cham = !!current.left + !!current.right,
-                replace,
-                replace_parent = null;
-
-            // если указанный узел является корневым, то особая обработка
-            if (current === this._root) {
-                switch (cham) {
-                    case 0:
-                        this._root = null;
-                        break;
-                    case 1:
-                        this._root = current.left || current.right;
-                        break;
-                    case 2:
-                        // найти крайний левый узел в правом поддереве
-                        replace = current.right;
-                        while (replace.left !== null) {
-                            replace_parent = replace;
-                            replace = replace.left;
-                        }
-                        // если он имеется, то копировать его данные в целевой узел и удалить
-                        if (replace_parent !== null) {
-                            replace_parent.left = replace.right;
-                            replace.left = current.left;
-                            replace.right = current.right;
-                        }
-                        // иначе просто свдинуть правое поддерево
-                        else {
-                            replace.left = current.left;
-                        }
-                        current = replace;
-                        break;
-                    // no default
-                }
-            }
-            // иначе обычный узел
-            else {
-                switch (cham) {
-                    case 0:
-                        parent[current.key < parent.key ? "left" : "right"] = null;
-                        break;
-                    case 1:
-                        parent[current.key < parent.key ? "left" : "right"] = current.left || current.right;
-                        break;
-                    case 2:
-                        // найти крайний левый узел в правом поддереве
-                        replace = current.right;
-                        while (replace.left !== null) {
-                            replace_parent = replace;
-                            replace = replace.left;
-                        }
-                        // если он имеется, то копировать его данные в целевой узел и удалить
-                        if (replace_parent) {
-                            replace_parent.left = replace.right;
-                            replace.left = current.left;
-                            replace.right = current.right;
-                        }
-                        // иначе просто свдинуть правое поддерево
-                        else {
-                            replace.left = current.left;
-                        }
-                        parent[current.key < parent.key ? "left" : "right"] = replace;
-                        break;
-                    // no default
-                }
+            // определить конечный рабочий узел
+            var target = current === this._root ? this._root
+                : parent[current.key < parent.key ? "left" : "right"];
+            // в зависимости от количества детей
+            switch (!!current.left + !!current.right) {
+                case 0:
+                    target = null;
+                    break;
+                case 1:
+                    target = current.left || current.right;
+                    break;
+                case 2:
+                    var replace = current.right,
+                        replace_parent = null;
+                    // найти крайний левый узел в правом поддереве
+                    while (replace.left !== null) {
+                        replace_parent = replace;
+                        replace = replace.left;
+                    }
+                    // если он имеется, то копировать его данные в целевой узел и удалить
+                    if (replace_parent !== null) {
+                        replace_parent.left = replace.right;
+                        replace.left = current.left;
+                        replace.right = current.right;
+                    }
+                    // иначе просто свдинуть правое поддерево
+                    else {
+                        replace.left = current.left;
+                    }
+                    target = replace;
+                    break;
+                // no default
             }
         }
-    };
-
-    /**
-     * Обойти все узлы дерева
-     * @param  {function} callback функция обратного вызова
-     * @param  {string:[inorder, preorder, postorder]} order порядок обхода (Default: inorder)
-     */
-    _structure.BinarySearchTree.prototype.traverse = (function() {
-        /**
-         * Рекурсивные функции обхода дерева
-         * @param {object} node узел дерева
-         * @param {function} callback функция обратного вызова
-         */
-        var traverse_order = {
-            // вершина, левое поддерево, правое поддерево
-            preorder: function(node, callback) {
-                if (node) {
-                    callback.call(this, node);
-                    if (node.left !== null) {
-                        preorder(node.left, callback);
-                    }
-                    if (node.right !== null) {
-                        preorder(node.right, callback);
-                    }
-                }
-            },
-            // левое поддерево, вершина, правое поддерево
-            inorder: function(node, callback) {
-                if (node) {
-                    if (node.left !== null) {
-                        inorder(node.left, callback);
-                    }
-                    callback.call(this, node);
-                    if (node.right !== null) {
-                        inorder(node.right, callback);
-                    }
-                }
-            },
-            // левое поддерево, правое поддерево, вершина
-            postorder: function(node, callback) {
-                if (node) {
-                    if (node.left !== null) {
-                        postorder(node.left, callback);
-                    }
-                    if (node.right !== null) {
-                        postorder(node.right, callback);
-                    }
-                    callback.call(this, node);
-                }
-            }
-        };
-        // вернуть метод класса
-        return function(callback, order) {
-            traverse_order[order || "inorder"](this._root, callback);
-        }
-    })();
-
-    /**
-     * Получить количество элементов в дереве
-     * @return {number:integer} количество элементов
-     */
-    _structure.BinarySearchTree.prototype.size = function() {
-        var length = 0;
-        this.traverse(function(node) {
-            length++;
-        });
-        return length;
-    };
-
-    /**
-     * Преобразовать дерево в массив
-     * @param  {string:[inorder, preorder, postorder]} order порядок обхода (Default: inorder)
-     * @return {array} массив элементов дерева
-     */
-    _structure.BinarySearchTree.prototype.toArray = function(order) {
-        var array = [];
-        this.traverse(function(node) {
-            array.push(node.data);
-        }, order);
-        return array;
     };
 
 }(Excalibur);
