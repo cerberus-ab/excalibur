@@ -14,12 +14,33 @@
     <script type="text/javascript">
 
         var assert = chai.assert;
+
+        /**
+         * Проверка наличия собственного метода у класса
+         * @param  {function} fc целевой класс
+         * @param  {string} method требуемый метод
+         * @param  {string} msg сообщение (Optional)
+         */
+        assert.ownMethod = function(fc, method, msg) {
+            assert.isTrue(fc.prototype.hasOwnProperty(method)
+                && typeof fc.prototype[method] === "function",
+                    msg || "expected to have an own method '" + method + "'");
+        };
+
+        /**
+         * Проверка наследования дочернего класса от родительского
+         * @param  {function} child дочерний класс
+         * @param  {function} parent родительский класс
+         * @param  {string} msg сообщение (Optional)
+         */
+        assert.isExtends = function(child, parent, msg) {
+            assert.strictEqual(child.superclass, parent.prototype,
+                msg || "expected class extending");
+        };
+
         mocha.setup("bdd");
 
     </script>
-    <!-- excalibur specification -->
-    <script src="js/spec/excalibur.spec.js"></script>
-    <script src="js/spec/excalibur-structure.spec.js"></script>
     <!-- excalibur source -->
     <script src="../src/js/excalibur.js"></script>
     <script src="../src/js/excalibur-array-sort.js"></script>
@@ -28,6 +49,9 @@
     <script src="../src/js/excalibur-network.js"></script>
     <script src="../src/js/excalibur-patterns.js"></script>
     <script src="../src/js/excalibur-structure.js"></script>
+    <!-- excalibur specification -->
+    <script src="js/spec/excalibur.spec.js"></script>
+    <script src="js/spec/excalibur-structure.spec.js"></script>
     <!-- run test -->
     <script type="text/javascript">
 

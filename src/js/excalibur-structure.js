@@ -90,7 +90,7 @@
      * Получить количество элементов в дереве
      * @return {number:integer} количество элементов
      */
-    _structure.BinaryTree.prototype.length = function() {
+    _structure.BinaryTree.prototype.size = function() {
         var length = 0;
         this.traverse(function(node) {
             length++;
@@ -173,8 +173,9 @@
 
     /**
      * Добавить новый узел в дерево
-     * @param {number} key ключ
-     * @param {object} value данные узла
+     * @param  {number} key ключ
+     * @param  {object} value данные узла
+     * @return {BinarySearchTree} дерево
      */
     _structure.BinarySearchTree.prototype.insert = function(key, value) {
         // инициализация нового узла
@@ -213,11 +214,13 @@
                 }
             }
         }
+        return this;
     };
 
     /**
      * Удалить узел по указанному ключу
      * @param  {number} key ключ
+     * @return {BinarySearchTree} дерево
      */
     _structure.BinarySearchTree.prototype.remove = function(key) {
         var found = false,
@@ -239,16 +242,16 @@
         }
         // если узел найден, то продолжить
         if (found) {
-            // определить конечный рабочий узел
-            var target = current === this._root ? this._root
-                : parent[current.key < parent.key ? "left" : "right"];
+            var isroot = current === this._root;
             // в зависимости от количества детей
             switch (!!current.left + !!current.right) {
                 case 0:
-                    target = null;
+                    isroot ? this._root = null
+                        : parent[current.key < parent.key ? "left" : "right"] = null;
                     break;
                 case 1:
-                    target = current.left || current.right;
+                    isroot ? this._root = current.left || current.right
+                        : parent[current.key < parent.key ? "left" : "right"] = current.left || current.right;
                     break;
                 case 2:
                     var replace = current.right,
@@ -268,11 +271,13 @@
                     else {
                         replace.left = current.left;
                     }
-                    target = replace;
+                    isroot ? this._root = replace
+                        : parent[current.key < parent.key ? "left" : "right"] = replace;
                     break;
                 // no default
             }
         }
+        return this;
     };
 
 }(Excalibur);
