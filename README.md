@@ -7,7 +7,7 @@
 + [excalibur-math-equation](#excalibur-math-equation)
 + [excalibur-network](#excalibur-network)
 + [excalibur-patterns](#excalibur-patterns)
-+ [excalibur-structure](#excalibure-structure)
++ [excalibur-structure](#excalibur-structure)
 
 ## excalibur[-core]
 [source](src/js/excalibur.js)
@@ -279,4 +279,20 @@ E.Patterns
 E.Structure
 ```
 + Бинарные деревья
-  - Бинарное дерево поиска
+  - [Binary Tree](#estructurebinarytree)
+  - [Binary Search Tree](#estructurebinarysearchtree)
+
+#### E.Structure.BinaryTree
+
+**Описание**
+
+Базовый класс бинарного дерева. Предоставляет такие операции как: различный обход узлов дерева, определение количества узлов, получение ключей и значений всех узлов. В настоящее время не имеет методов добавления, удаления и получения элементов. Поэтому используется как наследуемый для других структур данных на базе бинарных деревьев.
+
+#### E.Structure.BinarySearchTree
+
+**Описание**
+
+Класс двоичного дерева поиска. Базовый интерфейс состоит из трех операций: поиск элемента по ключу, добавление элемента как пары ключ-значение, удаление элемента по ключу.
+
+
+
