@@ -7,6 +7,7 @@
 + [excalibur-math-equation](#excalibur-math-equation)
 + [excalibur-network](#excalibur-network)
 + [excalibur-patterns](#excalibur-patterns)
++ [excalibur-structure](#excalibure-structure)
 
 ## excalibur[-core]
 [source](src/js/excalibur.js)
@@ -264,3 +265,18 @@ E.Patterns
 + структурные
 + поведенческие
   - Observer
+
+## excalibur-structure
+[source](src/js/excalibur-structure.js)
+
+Модуль предоставляет различные структуры данных.
+```html
+<script src="js/excalibur.js"></script>
+<script src="js/excalibur-structure.js"></script>
+```
+**Пространство имен**
+```javascript
+E.Structure
+```
++ Бинарные деревья
+  - Бинарное дерево поиска
