@@ -7,25 +7,28 @@
     var _structure = E.Structure = {};
 
     /**
-     * @class Бинарное дерево ==================================================
+     * Бинарное дерево =========================================================
+     *
      */
-    _structure.BinaryTree = function() {
-        this._root = null;
+
+    /**
+     * @class Узел бинарного дерева
+     * @param  {number} key ключ
+     * @param  {object} data данные узла
+     */
+    _structure.BinaryTreeNode = function BinaryTreeNode(key, data) {
+        this.key = key;
+        this.data = typeof data !== "undefined" ? data : null;
+        // ссылки на левый и правый узел
+        this.left = null;
+        this.right = null;
     };
 
     /**
-     * Инициализация нового узла
-     * @param  {number} key ключ
-     * @param  {object} data данные узла
-     * @return {object} новый узел дерева
+     * @class Бинарное дерево
      */
-    _structure.BinaryTree.prototype.initNode = function(key, data) {
-        return {
-            key: key,
-            data: typeof data !== "undefined" ? data : null,
-            left: null,
-            right: null
-        };
+    _structure.BinaryTree = function BinaryTree() {
+        this._root = null;
     };
 
     /**
@@ -122,11 +125,27 @@
     };
 
     /**
-     * @class Бинарное дерево поиска ===========================================
+     * Бинарное дерево поиска ==================================================
+     *
+     */
+
+    /**
+     * @class Узел бинарного дерева поиска
+     * @extends {BinaryTreeNode}
+     * @param  {number} key ключ
+     * @param  {object} data данные узла
+     */
+    _structure.BinarySearchTreeNode = function BinarySearchTreeNode(key, data) {
+        BinarySearchTreeNode.superclass.constructor.call(this, key, data);
+    };
+    E.Class.extend(_structure.BinarySearchTreeNode, _structure.BinaryTreeNode);
+
+    /**
+     * @class Бинарное дерево поиска
      * @extends {BinaryTree}
      */
-    _structure.BinarySearchTree = function() {
-        _structure.BinarySearchTree.superclass.constructor.call(this);
+    _structure.BinarySearchTree = function BinarySearchTree() {
+        BinarySearchTree.superclass.constructor.call(this);
     };
     E.Class.extend(_structure.BinarySearchTree, _structure.BinaryTree);
 
@@ -159,7 +178,7 @@
      */
     _structure.BinarySearchTree.prototype.insert = function(key, data) {
         // инициализация нового узла
-        var node = this.initNode(key, data);
+        var node = new _structure.BinarySearchTreeNode(key, data);
         // если корневой отсутствует, то добавить как корневой
         if (this._root === null){
             this._root = node;
