@@ -10,13 +10,12 @@ describe("Module: Structure", function() {
 
     describe("Бинарное дерево", function() {
 
-        var BinaryTree = E.Structure.BinaryTree;
+        var BinaryTree = E.Structure.BinaryTree,
+            own_methods = ["traverse", "size", "keys", "values"];
 
         it("базовый класс бинарного дерева", function() {
             assert.isFunction(BinaryTree);
         });
-
-        var own_methods = ["traverse", "size", "keys", "values"];
 
         it("собственные методы: " + own_methods.join(", "), function() {
             own_methods.forEach(function(method) {

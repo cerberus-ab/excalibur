@@ -35,6 +35,7 @@
      * Обойти все узлы дерева
      * @param  {function} callback функция обратного вызова
      * @param  {string:[inorder, preorder, postorder]} order порядок обхода (Default: inorder)
+     * @return {BinaryTree} дерево
      */
     _structure.BinaryTree.prototype.traverse = (function() {
         /**
@@ -83,6 +84,7 @@
         // вернуть метод класса
         return function(callback, order) {
             traverse_order[order || "inorder"](this._root, callback);
+            return this;
         }
     })();
 
