@@ -182,7 +182,7 @@ E.Networks
   - [isIPv4](#estringtestisipv4)
   - [isMAC](#estringtestismac)
   - [isMask](#estringtestismask)
-  - isPort
+  - [isPort](#estringtestisport)
 + E.Network
   - [getCRC16](#enetworkgetcrc16)
   - [getNetworkAddress](#enetworkgetnetworkaddress)
@@ -220,6 +220,18 @@ E.String.test.isMAC(str);
 **Синтаксис**
 ```javascript
 E.String.test.isMask(str);
+```
++ `str`: Проверяемая строка.
+
+#### E.String.test.isPort
+
+**Описание**
+
+Проверить является ли переданная строка записью TCP/UDP порта. Возвращает true/false.
+
+**Синтаксис**
+```javascript
+E.String.test.isPort(str);
 ```
 + `str`: Проверяемая строка.
 
@@ -278,7 +290,7 @@ E.Patterns
 ```javascript
 E.Structure
 ```
-+ Бинарные деревья
++ Бинарное дерево
   - [Binary Tree](#estructurebinarytree)
   - [Binary Search Tree](#estructurebinarysearchtree)
 
@@ -288,11 +300,84 @@ E.Structure
 
 Базовый класс бинарного дерева. Предоставляет такие операции как: различный обход узлов дерева, определение количества узлов, получение ключей и значений всех узлов. В настоящее время не имеет методов добавления, удаления и получения элементов. Поэтому используется как наследуемый для других структур данных на базе бинарных деревьев.
 
+**constructor**
+
+```javascript
+var tree = new E.Structure.BinaryTree;
+```
+
+**prototype.traverse**
+
+Рекурсивный обход всех элементов дерева в заданном порядке. Возвращает экземпляр дерева.
+
+```javascript
+tree.traverse(callback[, order]);
+```
++ `callback`: Функция обратного вызова для обработки текущего узла.
++ `order`: Порядок обхода элементов. Доступные значения: inorder, preorder, postorder. (Default: inorder) 
+
+**prototype.size**
+
+Получить количество элементов в дереве.
+
+```javascript
+tree.size();
+```
+
+**prototype.keys**
+
+Рекурсивно обойти дерево и получить массив ключей его элементов.
+
+```javascript
+tree.keys([order]);
+```
++ `order`: Порядок обхода элементов. См. prototype.traverse.
+
+**prototype.values**
+
+Рекурсивно обойти дерево и получить массив значений его элементов.
+
+```javascript
+tree.values([order]);
+```
++ `order`: Порядок обхода элементов. См. prototype.traverse.
+
 #### E.Structure.BinarySearchTree
 
 **Описание**
 
-Класс двоичного дерева поиска. Базовый интерфейс состоит из трех операций: поиск элемента по ключу, добавление элемента как пары ключ-значение, удаление элемента по ключу.
+Класс двоичного дерева поиска. Наследован от базового класса бинарного дерева. Интерфейс включает три основные операции: поиск элемента по ключу, добавление элемента как пары ключ-значение, удаление элемента по ключу.
 
+**constructor**
 
+```javascript
+var tree = new E.Structure.BinarySearchTree;
+```
 
+**prototype.find**
+
+Поиск элемента дерева по его ключу. Возвращает значение искомого элемента.
+
+```javascript
+tree.find(key);
+```
++ `key`: Числовой ключ искомого элемента.
+
+**prototype.insert**
+
+Добавить в дерево новую пару ключ/значение. Если по указанному ключу уже существует элемент в дереве, то его значение будет изменено на указанное. Возвращает экземпляр дерева.
+
+```javascript
+tree.insert(key[, value]);
+```
++ `key`: Числовой ключ нового элемента.
++ `value`: Значение нового элемента. (Optional, Default: null)
+
+**prototype.remove**
+
+Удалить элемент дерева по ключу. Возвращает экземпляр дерева.
+
+```javascript
+tree.remove(key);
+```
++ `key`: Числовой ключ удаляемого элемента.
