@@ -1,6 +1,8 @@
 # Excalibur
 _Just another javascript-native library_
 
+Всего: 7 модулей расширений, 1 константа, 50 функций, 5 классов.
+
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-array-sort](#excalibur-array-sort)
 + [excalibur-math-sequence](#excalibur-math-sequence)
@@ -8,15 +10,6 @@ _Just another javascript-native library_
 + [excalibur-network](#excalibur-network)
 + [excalibur-patterns](#excalibur-patterns)
 + [excalibur-structure](#excalibur-structure)
-
-**Statistics**
-
-| Unit      | Count  |
-| :-------- | ------:| 
-| modules   | 7      |
-| constants | 1      |
-| functions | 46     |
-| classes   | 5      |
 
 ## excalibur[-core]
 [source](src/js/excalibur.js)
