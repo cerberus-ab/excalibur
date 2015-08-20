@@ -1,5 +1,5 @@
 # Excalibur
-*Just another javascript-native library*
+_Just another javascript-native library_
 
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-array-sort](#excalibur-array-sort)
@@ -8,6 +8,15 @@
 + [excalibur-network](#excalibur-network)
 + [excalibur-patterns](#excalibur-patterns)
 + [excalibur-structure](#excalibur-structure)
+
+**Statistics**
+
+| Unit      | Count  |
+| :-------- | ------:| 
+| modules   | 7      |
+| constants | 1      |
+| functions | 46     |
+| classes   | 5      |
 
 ## excalibur[-core]
 [source](src/js/excalibur.js)
