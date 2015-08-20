@@ -29,7 +29,7 @@
                 // constructor body
             }
             else {
-                return new SingltonConstructor();
+                return new SingltonConstructor;
             }
         }
      })();
@@ -44,10 +44,9 @@
      * @description Определяет зависимость между объектами таким образом,
      * что при изменении состояния одного объекта будут оповещены все зависящие от него.
      */
-
     _patterns.Observer = function() {
         /** @type {object} топики */
-        this.topics = {};
+        this._topics = {};
     };
 
     /**
@@ -60,7 +59,7 @@
         var topic = this._topics[name];
         // если топик не существует, то создать его
         if (!topic) {
-            topic = { queue: [] };
+            topic = this._topics[name] = { queue: [] };
         }
         // добавить подписчика и запомнить его индекс
         var index = topic.queue.push(listener) -1;

@@ -11,7 +11,7 @@
      * @param  {function} func целевая функция
      * @param  {object} range диапазон поиска
      * @param  {object} options настройки
-     * @return {number|undefined} корень уравнения
+     * @return {number} корень уравнения
      */
     _equation.dichotomy = function(func, range, options) {
         // диапазон по умолчанию
