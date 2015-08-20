@@ -339,6 +339,59 @@
     };
 
     /**
+     * Взять логарифм по основанию
+     * @param  {number} number число
+     * @param  {number} base основание (Default: e)
+     * @return {number} значение логарифма
+     */
+    _math.logarithm = function(number, base) {
+        return Math.log(number) / (base ? Math.log(base) : 1.);
+    };
+
+    /**
+     * Получить число сочетаний n по k
+     * @param  {number} k числитель
+     * @param  {number} n знаменатель
+     * @return {number} количество сочетаний
+     */
+    _math.getCombinationNumber = function(k, n) {
+        for (var res = 1, i = 0; i != k; i++) {
+            res *= (n - i)/(k - i);
+        } return res;
+    };
+
+    /**
+     * Получить все варианты сочетаний n по k
+     * @param  {number:integer} k числитель
+     * @param  {number:integer} n знаменатель
+     * @param  {string:[num, bin, set]} формат возвращаемого набора (Default: num)
+     * @return {Array} набор сочетаний
+     */
+    _math.getCombination = function(k, n, format) {
+        // формирование набора
+        for (var comb = [], i = 0, cur = (1 << k) -1, tmp; cur < (1 << n); i++) {
+            comb.push(cur);
+            tmp = (cur | (cur -1)) +1;
+            cur = tmp | ((((tmp & -tmp) / (cur & -cur)) >> 1) -1);
+        }
+        // если представить в бинарном виде или числовыми наборами, то дальнейшая обработка
+        if (format === "bin" || format === "set") {
+            // набор в бинарном виде (обратный порядок)
+            var comb_bin = comb.map(function(current) {
+                var bin = current.toString(2);
+                return new Array(n - bin.length + 1).join("0") + bin;
+            }).reverse();
+            // вернуть в бинарном виде или числовыми наборами
+            return format === "bin" ? comb_bin
+                : comb_bin.map(function(current) {
+                    return _string.indexOfAll(current, "1");
+                });
+        }
+        // иначе вернуть в целых числах
+        else return comb;
+    };
+
+    /**
      * Работа с классами =======================================================
      *
      */
@@ -363,6 +416,20 @@
 
     /** @type {object} различные проверки целевой строки */
     _string.test = {};
+
+    /**
+     * Найти все вхождения подстроки в строку
+     * @param  {string} str целевая строка
+     * @param  {string} needle искомая подстрока
+     * @return {array} набор индексов всех вхождений
+     */
+    _string.indexOfAll = function(str, needle) {
+        var matches = [];
+        for (var pos = str.indexOf(needle); pos +1; pos = str.indexOf(needle, pos + 1)) {
+            matches.push(pos);
+        }
+        return matches;
+    };
 
     /**
      * Проверка строки регулярным выражением
