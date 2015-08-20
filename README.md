@@ -1,7 +1,7 @@
 # Excalibur
 _Just another javascript-native library_
 
-Всего: 7 модулей расширений, 1 константа, 50 функций, 5 классов.
+Всего: 7 модулей расширений, 1 константа, 47 функций, 5 классов.
 
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-array-sort](#excalibur-array-sort)
@@ -45,13 +45,9 @@ Excalibur = E
   - getRandomInt
   - factorial
   - pow
-  - logarithm
-  - getCombinationNumber
-  - getCombination
 + Class
   - extend
 + String
-  - indexOfAll
   - regTest
   - toCamelCase
   - toUnderlineCase
