@@ -45,9 +45,13 @@ Excalibur = E
   - getRandomInt
   - factorial
   - pow
+  - logarithm
+  - getCombinationNumber
+  - getCombination
 + Class
   - extend
 + String
+  - indexOfAll
   - regTest
   - toCamelCase
   - toUnderlineCase
