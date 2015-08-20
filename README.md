@@ -15,7 +15,7 @@ _Just another javascript-native library_
 | :-------- | ------:| 
 | modules   | 7      |
 | constants | 1      |
-| functions | 46     |
+| functions | 50     |
 | classes   | 5      |
 
 ## excalibur[-core]
@@ -52,9 +52,13 @@ Excalibur = E
   - getRandomInt
   - factorial
   - pow
+  - logarithm
+  - getCombinationNumber
+  - getCombination
 + Class
   - extend
 + String
+  - indexOfAll
   - regTest
   - toCamelCase
   - toUnderlineCase
