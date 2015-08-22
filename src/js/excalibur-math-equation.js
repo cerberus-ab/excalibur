@@ -17,9 +17,9 @@
         // диапазон по умолчанию
         range = E.Object.extend({
             /** @type {number} левая граница */
-            beg: -10,
+            beg: -1.,
             /** @type {number} правая граница */
-            end: 10
+            end: 1.
         }, range);
         // настройки по умолчанию
         options = E.Object.extend({
@@ -54,5 +54,42 @@
         return x0;
     };
 
+    /**
+     * Численное взятие определенного интеграла
+     * @deprecated
+     * @param  {function} func подинтегральная функция
+     * @param  {object} range диапазон
+     * @param  {object} options настройки
+     * @return {number} значение интеграла
+     */
+    _equation.getDefiniteIntegral = function(func, range, options) {
+        // диапазон по умолчанию
+        range = E.Object.extend({
+            /** @type {number} левая граница */
+            beg: -1.,
+            /** @type {number} правая граница */
+            end: 1.
+        }, range);
+        // настройки по умолчанию
+        options = E.Object.extend({
+            /** @type {string:[rect]} используемый алгоритм */
+            algo: "rect",
+            /** @type {number:integer} количество квантов */
+            quant: 1000
+        }, options);
+
+        switch (options.algo) {
+            // метод прямоугольников
+            case "rect":
+                var dx = (range.end - range.beg) / options.quant;
+                for (var sum = i = 0; i != options.quant; ++i) {
+                    sum += func(range.beg + dx * (.5 + i));
+                }
+                return sum * dx;
+            // иначе ничего хорошего
+            default:
+                return undefined;
+        }
+    };
 
 }(Excalibur);

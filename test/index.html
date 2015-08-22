@@ -8,24 +8,24 @@
 </head>
 <body>
     <div id="mocha"></div>
-    <!-- test environment setup -->
+    <!-- tests environment setup -->
     <script src="js/lib/mocha.js"></script>
     <script src="js/lib/chai.js"></script>
-    <script src="js/setup.js"></script>
-    <!-- excalibur source -->
+    <script src="js/tsetup.js"></script>
+    <!-- excalibur core -->
     <script src="../src/js/excalibur.js"></script>
-    <script src="../src/js/excalibur-object-map.js"></script>
     <script src="../src/js/excalibur-array-sort.js"></script>
-    <script src="../src/js/excalibur-math-sequence.js"></script>
     <script src="../src/js/excalibur-math-equation.js"></script>
+    <script src="../src/js/excalibur-math-sequence.js"></script>
     <script src="../src/js/excalibur-network.js"></script>
+    <script src="../src/js/excalibur-object-map.js"></script>
     <script src="../src/js/excalibur-patterns.js"></script>
     <script src="../src/js/excalibur-structure.js"></script>
     <!-- excalibur specification -->
     <script src="js/spec/excalibur.spec.js"></script>
     <script src="js/spec/excalibur-patterns.spec.js"></script>
     <script src="js/spec/excalibur-structure.spec.js"></script>
-    <!-- run test -->
+    <!-- run tests -->
     <script type="text/javascript">
 
         mocha.run();
