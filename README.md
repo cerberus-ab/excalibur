@@ -82,9 +82,8 @@ Excalibur = E
 ```
 **Пространство имен**
 ```javascript
-E.Object
+E.Object.Map
 ```
-+ [Map](#eobjectmap)
 
 #### E.Object.Map
 
@@ -226,7 +225,7 @@ E.Math.sequence
 E.Math.equation
 ```
 + [dichotomy](#emathequationdichotomy)
-+ getDefiniteIntegral
++ [getDefiniteIntegral](#emathequationgetdefiniteintegral)
 
 #### E.Math.equation.dichotomy
 
@@ -238,7 +237,7 @@ E.Math.equation
 ```javascript
 E.Math.equation.dichotomy(func, range[, options]);
 ```
-+ `func`: Целевая функция. 
++ `func`(arg): Целевая функция от аргумента. 
 + `range`: Диапазон поиска.
   - `beg`: Левая граница диапазона (Default: -1).
   - `end`: Правая граница диапазона (Default: 1).
@@ -267,6 +266,36 @@ $ E.Math.equation.dichotomy(function(arg) {
   end: 2. 
 });
 > Uncaught RangeError: Maximum iterations count exceeded
+```
+
+#### E.Math.equation.getDefiniteIntegral
+
+**Описание**
+
+Численное интегрирование функции одной переменной, заключающиеся в замене подынтегральной функции на константу на каждом элементарном отрезке. Возвращает численный результат интегрирования.
+
+**Синтаксис**
+```javascript
+E.Math.equation.getDefiniteIntegral(func, range[, options]);
+```
++ `func`(arg): Подынтегральная функция от аргумента. 
++ `range`: Отрезок интегрирования.
+  - `beg`: Нижняя граница отрезка (Default: -1).
+  - `end`: Верхняя граница отрезка (Default: 1).
++ `options`: Настройки выполнения (Optional).
+  - `algo`: Используемый алгоритм: rect (Default: rect).
+  - `quant`: Количество квантов, участков разбиения (Default: 1000).
+
+**Примеры**
+
+Численное интегрирование функции _x^3 - 3x_ на отрезке [-1, 8]. 
+```shell
+$ E.Math.equation.getDefiniteIntegral(function(arg) { 
+  return Math.pow(arg, 3) - 3 * arg; 
+}, { 
+  end: 8 
+});
+> 929.2493621249995
 ```
 
 ## excalibur-network
@@ -376,10 +405,10 @@ E.Network.getNetworkAddress(addr, mask);
 ```javascript
 E.Patterns
 ```
-+ порождающие
++ Порождающие
   - Singleton
-+ структурные
-+ поведенческие
++ Структурные
++ Поведенческие
   - Observer
 
 ## excalibur-structure
@@ -394,6 +423,7 @@ E.Patterns
 ```javascript
 E.Structure
 ```
++ Связный список
 + Бинарное дерево
   - [Binary Tree](#estructurebinarytree)
   - [Binary Search Tree](#estructurebinarysearchtree)
