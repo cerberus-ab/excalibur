@@ -89,7 +89,7 @@ E.Object.Map
 
 **Описание**
 
-Базовый класс карты объекта. Основной интерфейс: вернуть карту объекта, получить статистику по карте, преобразовать карту в строковой вид для чтения. 
+Базовый класс карты объекта. Основной интерфейс: вернуть карту объекта, получить статистику по карте, преобразовать карту в строковой вид для чтения.
 
 **constructor**
 
@@ -107,7 +107,7 @@ map.traverse(callback);
 ```
 + `callback`(path, node): Функция обратного вызова для обработки текущего узла. Аргументы:
   - `path`: Строковая запись пути к текущему узлу.
-  - `node`: Текущий узел карты. 
+  - `node`: Текущий узел карты.
 
 **prototype.show**
 
@@ -237,7 +237,7 @@ E.Math.equation
 ```javascript
 E.Math.equation.dichotomy(func, range[, options]);
 ```
-+ `func`(arg): Целевая функция от аргумента. 
++ `func`(arg): Целевая функция от аргумента.
 + `range`: Диапазон поиска.
   - `beg`: Левая граница диапазона (Default: -1).
   - `end`: Правая граница диапазона (Default: 1).
@@ -249,21 +249,21 @@ E.Math.equation.dichotomy(func, range[, options]);
 
 Поиск корня уравнения _sin(2x) - ln(x) - 1_ на отрезке [0,1]. Корень имеется и он единственный.
 ```shell
-$ E.Math.equation.dichotomy(function(arg) { 
-  return Math.sin(2 * arg) - Math.log(arg) - 1; 
-}, { 
-  beg: 0., 
-  end: 1. 
+$ E.Math.equation.dichotomy(function(arg) {
+  return Math.sin(2 * arg) - Math.log(arg) - 1;
+}, {
+  beg: 0.,
+  end: 1.
 });
 > 0.9482421875
 ```
 Поиск корня этого же уравнения на отрезке [1,2]. Корня нет.
 ```shell
-$ E.Math.equation.dichotomy(function(arg) { 
-  return Math.sin(2 * arg) - Math.log(arg) - 1; 
-}, { 
-  beg: 1., 
-  end: 2. 
+$ E.Math.equation.dichotomy(function(arg) {
+  return Math.sin(2 * arg) - Math.log(arg) - 1;
+}, {
+  beg: 1.,
+  end: 2.
 });
 > Uncaught RangeError: Maximum iterations count exceeded
 ```
@@ -278,7 +278,7 @@ $ E.Math.equation.dichotomy(function(arg) {
 ```javascript
 E.Math.equation.getDefiniteIntegral(func, range[, options]);
 ```
-+ `func`(arg): Подынтегральная функция от аргумента. 
++ `func`(arg): Подынтегральная функция от аргумента.
 + `range`: Отрезок интегрирования.
   - `beg`: Нижняя граница отрезка (Default: -1).
   - `end`: Верхняя граница отрезка (Default: 1).
@@ -288,12 +288,12 @@ E.Math.equation.getDefiniteIntegral(func, range[, options]);
 
 **Примеры**
 
-Численное интегрирование функции _x^3 - 3x_ на отрезке [-1, 8]. 
+Численное интегрирование функции _x^3 - 3x_ на отрезке [-1, 8].
 ```shell
-$ E.Math.equation.getDefiniteIntegral(function(arg) { 
-  return Math.pow(arg, 3) - 3 * arg; 
-}, { 
-  end: 8 
+$ E.Math.equation.getDefiniteIntegral(function(arg) {
+  return Math.pow(arg, 3) - 3 * arg;
+}, {
+  end: 8
 });
 > 929.2493621249995
 ```
@@ -324,7 +324,7 @@ E.Networks
 
 **Описание**
 
-Проверить является ли переданная строка десятичной записью IPv4 адреса. Возвращает true/false. 
+Проверить является ли переданная строка десятичной записью IPv4 адреса. Возвращает true/false.
 
 **Синтаксис**
 ```javascript
@@ -372,7 +372,7 @@ E.String.test.isPort(str);
 
 **Описание**
 
-Вычисление контрольной суммы HEX-строки с использованием алгоритма CRC16. Если длина целевой строки не кратна 4, то до нужной длины будут дописаны нули в конец. 
+Вычисление контрольной суммы HEX-строки с использованием алгоритма CRC16. Если длина целевой строки не кратна 4, то до нужной длины будут дописаны нули в конец.
 
 **Синтаксис**
 ```javascript
@@ -448,7 +448,7 @@ var tree = new E.Structure.BinaryTree;
 tree.traverse(callback[, order]);
 ```
 + `callback`: Функция обратного вызова для обработки текущего узла.
-+ `order`: Порядок обхода элементов. Доступные значения: inorder, preorder, postorder. (Default: inorder) 
++ `order`: Порядок обхода элементов. Доступные значения: inorder, preorder, postorder. (Default: inorder)
 
 **prototype.size**
 
