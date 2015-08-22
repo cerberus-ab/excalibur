@@ -90,109 +90,6 @@
     };
 
     /**
-     * Карта объекта
-     * @class
-     * @param {object} obj целевой объект
-     */
-    _object.Map = function(obj) {
-        this._map = this._recreate(obj);
-    };
-
-    /**
-     * Приватный метод рекурскивного создания объекта карты
-     * @param  {object} obj целевой объект
-     * @return {object} объект карты
-     */
-    _object.Map.prototype._recreate = function(obj) {
-        var self = this,
-            ps = _object.getOwnProperties(obj),
-            map = {
-                functions: [],
-                properties: [],
-                objects: {}
-            };
-        ps.forEach(function(property) {
-            switch (typeof obj[property]) {
-                case "function":
-                    map.functions.push(property);
-                    break;
-                case "object":
-                    map.objects[property] = self._recreate.call(self, obj[property]);
-                    break;
-                default:
-                    map.properties.push(property);
-                    break;
-            }
-        });
-        return map;
-    };
-
-    /**
-     * Обход карты объекта
-     * @param  {function} callback функция обратного вызова
-     * @return {Map} экземпляр карты
-     */
-    _object.Map.prototype.traverse = (function(callback) {
-        /**
-         * Формирование пути к объекту
-         * @param  {string} path текущий путь
-         * @param  {string} name название объекта
-         * @return {string} новый путь
-         */
-        function pathto(path, name) {
-            return path ? path + "." + name : name;
-        }
-        /**
-         * Функция рекурсивного обхода
-         * @param  {object} obj текущий объект
-         * @param  {function} callback функция обратного вызова
-         */
-        function order(path, obj, callback) {
-            callback.call(this, path, obj);
-            for (var prop in obj.objects) if (obj.objects.hasOwnProperty(prop)) {
-                order.call(this, pathto(path, prop), obj.objects[prop], callback);
-            }
-        }
-        // вернуть метод
-        return function(callback) {
-            order.call(this, null, this._map, callback);
-            return this;
-        }
-    })();
-
-    /**
-     * Вернуть объект карты как он есть
-     * @return {object} объект карты
-     */
-    _object.Map.prototype.show = function() {
-        return this._map;
-    };
-
-    /**
-     * Получить статистику по объекту
-     * @return {object} статистика
-     */
-    _object.Map.prototype.statistics = function() {
-        var statistics = {
-            functions: 0,
-            properties: 0
-        };
-        this.traverse(function(path, node) {
-            statistics.functions += node.functions.length;
-            statistics.properties += node.properties.length;
-        });
-        return statistics;
-    };
-
-    /**
-     * Получить строковое представление карты
-     * @return {string} карта строкой
-     */
-    _object.Map.prototype.toString = function() {
-        return JSON.stringify(this._map);
-    };
-
-    /**
      * Методы работы с функциями ===============================================
      *
      */
@@ -606,6 +503,17 @@
             }
         }
         return methods;
+    };
+
+    /**
+     * Проверить является ли функция классом (то есть функцией-конструктором)
+     * @deprecated
+     * @param  {function|string} fc целевая функция или ее название
+     * @return {boolean} true/false
+     */
+    _class.isClass = function(fc) {
+        if (typeof fc !== "function" && typeof fc !== "string") return false;
+        return _string.regTest(typeof fc === "function" ? _function.getName(fc) : fc, "^_?[A-Z]");
     };
 
     /**
