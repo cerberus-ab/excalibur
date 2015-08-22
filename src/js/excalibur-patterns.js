@@ -56,17 +56,15 @@
      * @return {object} управление подпиской (remove)
      */
     _patterns.Observer.prototype.subscribe = function(name, listener) {
-        var topic = this._topics[name];
-        // если топик не существует, то создать его
-        if (!topic) {
-            topic = this._topics[name] = { queue: [] };
-        }
+        // инициализация топика, если он еще не был определен
+        var topic = this._topics[name] = this._topics[name] || { queue: [] };
         // добавить подписчика и запомнить его индекс
         var index = topic.queue.push(listener) -1;
         // вернуть управление подпиской
         return {
             /**
              * Удаление подписки
+             * @function
              */
             remove: function() {
                 delete topic.queue[index];

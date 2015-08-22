@@ -2,7 +2,7 @@ describe("Module: Patterns", function() {
 
     describe("Инициализация модуля", function() {
 
-        it("определен как 'E.Patterns'", function() {
+        it("определен как раздел 'E.Patterns'", function() {
             assert.isDefined(E.Patterns);
         });
 
@@ -37,7 +37,9 @@ describe("Module: Patterns", function() {
         describe("Observer", function() {
 
             var Observer = E.Patterns.Observer,
-                own_methods = ["subscribe", "publish"];
+                obs,
+                own_methods = ["subscribe", "publish"],
+                subscribe_methods = ["remove"];
 
             it("класс наблюдателя определен", function() {
                 assert.isFunction(Observer);
@@ -46,6 +48,14 @@ describe("Module: Patterns", function() {
             it("собственные методы: " + own_methods.join(", "), function() {
                 own_methods.forEach(function(method) {
                     assert.ownMethod(Observer, method);
+                });
+            });
+
+            it("подписка возвращает интерфейс управления: " + subscribe_methods.join(", "), function() {
+                obs = new Observer;
+                var sub = obs.subscribe("test", function() { /* do somethink */ });
+                subscribe_methods.forEach(function(method) {
+                    assert.ownMethod(sub, method);
                 });
             });
 

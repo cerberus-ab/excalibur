@@ -2,7 +2,7 @@ describe("Module: Structure", function() {
 
     describe("Инициализация модуля", function() {
 
-        it("определен как 'E.Structure'", function() {
+        it("определен как раздел 'E.Structure'", function() {
             assert.isDefined(E.Structure);
         });
 

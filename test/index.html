@@ -11,36 +11,7 @@
     <!-- test environment setup -->
     <script src="js/lib/mocha.js"></script>
     <script src="js/lib/chai.js"></script>
-    <script type="text/javascript">
-
-        var assert = chai.assert;
-
-        /**
-         * Проверка наличия собственного метода у класса
-         * @param  {function} fc целевой класс
-         * @param  {string} method требуемый метод
-         * @param  {string} msg сообщение (Optional)
-         */
-        assert.ownMethod = function(fc, method, msg) {
-            assert.isTrue(fc.prototype.hasOwnProperty(method)
-                && typeof fc.prototype[method] === "function",
-                    msg || "expected to have an own method '" + method + "'");
-        };
-
-        /**
-         * Проверка наследования дочернего класса от родительского
-         * @param  {function} child дочерний класс
-         * @param  {function} parent родительский класс
-         * @param  {string} msg сообщение (Optional)
-         */
-        assert.isExtends = function(child, parent, msg) {
-            assert.strictEqual(child.superclass, parent.prototype,
-                msg || "expected class extending");
-        };
-
-        mocha.setup("bdd");
-
-    </script>
+    <script src="js/setup.js"></script>
     <!-- excalibur source -->
     <script src="../src/js/excalibur.js"></script>
     <script src="../src/js/excalibur-array-sort.js"></script>

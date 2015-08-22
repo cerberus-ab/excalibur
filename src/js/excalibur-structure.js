@@ -49,10 +49,10 @@
                 if (node) {
                     callback.call(this, node);
                     if (node.left !== null) {
-                        traverse(node.left, callback);
+                        traverse.call(this, node.left, callback);
                     }
                     if (node.right !== null) {
-                        traverse(node.right, callback);
+                        traverse.call(this, node.right, callback);
                     }
                 }
             },
@@ -60,11 +60,11 @@
             inorder: function traverse(node, callback) {
                 if (node) {
                     if (node.left !== null) {
-                        traverse(node.left, callback);
+                        traverse.call(this, node.left, callback);
                     }
                     callback.call(this, node);
                     if (node.right !== null) {
-                        traverse(node.right, callback);
+                        traverse.call(this, node.right, callback);
                     }
                 }
             },
@@ -72,10 +72,10 @@
             postorder: function traverse(node, callback) {
                 if (node) {
                     if (node.left !== null) {
-                        traverse(node.left, callback);
+                        traverse.call(this, node.left, callback);
                     }
                     if (node.right !== null) {
-                        traverse(node.right, callback);
+                        traverse.call(this, node.right, callback);
                     }
                     callback.call(this, node);
                 }
@@ -83,7 +83,7 @@
         };
         // вернуть метод класса
         return function(callback, order) {
-            traverse_order[order || "inorder"](this._root, callback);
+            traverse_order[order || "inorder"].call(this, this._root, callback);
             return this;
         }
     })();

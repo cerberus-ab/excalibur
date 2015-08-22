@@ -30,7 +30,7 @@
     /**
      * Получить перечень собственных свойств объекта
      * @param  {object} obj целевой объект
-     * @return {array} набор свойств
+     * @return {array} набор собственных свойств
      */
     _object.getOwnProperties = function(obj) {
         var arr = [];
@@ -38,6 +38,17 @@
             arr.push(property);
         }
         return arr;
+    };
+
+    /**
+     * Получить собственные методы объекта
+     * @param  {object} obj целевой объект
+     * @return {array} набор собственных методов
+     */
+    _object.getOwnMethods = function(obj) {
+        return _object.getOwnProperties(obj).filter(function(property) {
+            return typeof obj[property] === "function";
+        });
     };
 
     /**
@@ -79,6 +90,109 @@
     };
 
     /**
+     * Карта объекта
+     * @class
+     * @param {object} obj целевой объект
+     */
+    _object.Map = function(obj) {
+        this._map = this._recreate(obj);
+    };
+
+    /**
+     * Приватный метод рекурскивного создания объекта карты
+     * @param  {object} obj целевой объект
+     * @return {object} объект карты
+     */
+    _object.Map.prototype._recreate = function(obj) {
+        var self = this,
+            ps = _object.getOwnProperties(obj),
+            map = {
+                functions: [],
+                properties: [],
+                objects: {}
+            };
+        ps.forEach(function(property) {
+            switch (typeof obj[property]) {
+                case "function":
+                    map.functions.push(property);
+                    break;
+                case "object":
+                    map.objects[property] = self._recreate.call(self, obj[property]);
+                    break;
+                default:
+                    map.properties.push(property);
+                    break;
+            }
+        });
+        return map;
+    };
+
+    /**
+     * Обход карты объекта
+     * @param  {function} callback функция обратного вызова
+     * @return {Map} экземпляр карты
+     */
+    _object.Map.prototype.traverse = (function(callback) {
+        /**
+         * Формирование пути к объекту
+         * @param  {string} path текущий путь
+         * @param  {string} name название объекта
+         * @return {string} новый путь
+         */
+        function pathto(path, name) {
+            return path ? path + "." + name : name;
+        }
+        /**
+         * Функция рекурсивного обхода
+         * @param  {object} obj текущий объект
+         * @param  {function} callback функция обратного вызова
+         */
+        function order(path, obj, callback) {
+            callback.call(this, path, obj);
+            for (var prop in obj.objects) if (obj.objects.hasOwnProperty(prop)) {
+                order.call(this, pathto(path, prop), obj.objects[prop], callback);
+            }
+        }
+        // вернуть метод
+        return function(callback) {
+            order.call(this, null, this._map, callback);
+            return this;
+        }
+    })();
+
+    /**
+     * Вернуть объект карты как он есть
+     * @return {object} объект карты
+     */
+    _object.Map.prototype.show = function() {
+        return this._map;
+    };
+
+    /**
+     * Получить статистику по объекту
+     * @return {object} статистика
+     */
+    _object.Map.prototype.statistics = function() {
+        var statistics = {
+            functions: 0,
+            properties: 0
+        };
+        this.traverse(function(path, node) {
+            statistics.functions += node.functions.length;
+            statistics.properties += node.properties.length;
+        });
+        return statistics;
+    };
+
+    /**
+     * Получить строковое представление карты
+     * @return {string} карта строкой
+     */
+    _object.Map.prototype.toString = function() {
+        return JSON.stringify(this._map);
+    };
+
+    /**
      * Методы работы с функциями ===============================================
      *
      */
@@ -97,8 +211,7 @@
     };
 
     /**
-     * Функция с запоминанием числа вызовов
-     * @class
+     * @class Функция с запоминанием числа вызовов
      * @param {function} func целевая функция
      */
     _function.Counter = function(func) {
@@ -115,10 +228,53 @@
     };
 
     /**
+     * @class Функция с возможность лишь одного вызова
+     * @param {function} func целевая функция
+     */
+    _function.Single = function(func) {
+        var isexec = false,
+            result;
+        // выполнить функцию
+        this.run = function() {
+            if (isexec) {
+                return result;
+            }
+            else {
+                isexec = true;
+                return result = func.apply(this, arguments);
+            }
+        }
+    };
+
+    /**
      * Методы работы с массивами ===============================================
      *
      */
     var _array = E.Array = {};
+
+    /**
+     * Найти все вхождения элемента в массиве
+     * @param  {array} array целевой массив
+     * @param  {Mixed} needle искомый элемент
+     * @return {array} набор индексов всех вхождений
+     */
+    _array.indexOfAll = function(array, needle) {
+        var matches = [];
+        for (var pos = array.indexOf(needle); pos +1; pos = array.indexOf(needle, pos + 1)) {
+            matches.push(pos);
+        }
+        return matches;
+    };
+
+    /**
+     * Сравнить два массива
+     * @param  {array} arr1 первый массив
+     * @param  {array} arr2 второй массив
+     * @return {boolean} true/false
+     */
+    _array.compare = function(arr1, arr2) {
+        return arr1.toString() == arr2.toString();
+    };
 
     /**
      * Поменять местами элементы массива
@@ -136,9 +292,9 @@
 
     /**
      * Вычислить сумму элементов массива
-     * @param  {Array} array целевой массив
+     * @param  {array} array целевой массив
      * @param  {function} adder функция сложения
-     * @param  {Mixed} initial начальное значение (Default: 0)
+     * @param  {Mixed} initial начальное значение (Optional, Default: 0)
      * @return {Mixed} результат сложения
      */
     _array.sum = function(array, adder, initial) {
@@ -153,9 +309,9 @@
 
     /**
      * Вычислить произведение элементов массива
-     * @param  {Array} array целевой массив
+     * @param  {array} array целевой массив
      * @param  {function} multer функция произведения
-     * @param  {Mixed} initial начальное значение (Default: 1)
+     * @param  {Mixed} initial начальное значение (Optional, Default: 1)
      * @return {Mixed} результат сложения
      */
     _array.mult = function(array, multer, initial) {
@@ -166,6 +322,26 @@
         }
         initial = initial || 1;
         return array.reduce(multer, initial);
+    };
+
+    /**
+     * Простое скользящее среднее по набору элементов
+     * @param  {array} array целевой массив
+     * @param  {function} adder функция сложения
+     * @param  {Mixed} initial начальное значение (Optional, Default: 0)
+     * @return {array} скользящее среднее
+     */
+    _array.slideAverage = function(array, adder, initial) {
+        if (typeof adder !== "function") {
+            adder = function(previous, current, index, array) {
+                return previous + (typeof current !== "number" ? 0 : current);
+            }
+        }
+        var sum = initial || 0;
+        return array.map(function(current, index, array) {
+            sum = adder(sum, current, index, array);
+            return sum / (index + 1);
+        });
     };
 
     /**
@@ -282,9 +458,9 @@
 
     /**
      * Получить случайной целое в диапазоне
-     * @param  {integer} range1 левая граница
-     * @param  {integer} range2 правая граница
-     * @return {integer} случайное целое
+     * @param  {number:integer} range1 левая граница
+     * @param  {number:integer} range2 правая граница
+     * @return {number:integer} случайное целое
      */
     _math.getRandomInt = function(range1, range2) {
         var min = range1 -0,
@@ -322,7 +498,7 @@
         pow -= 0;
         if (!pow) return 1;
         // если степень дробная, то обычный метод
-        if (!_math.isInteger(numb)) return Math.pow(numb, pow);
+        if (!_math.isInteger(pow)) return Math.pow(numb, pow);
         // иначе быстрое возведение для целых чисел
         var result = 1;
         while (pow) {
@@ -344,7 +520,7 @@
      * @param  {number} base основание (Default: e)
      * @return {number} значение логарифма
      */
-    _math.logarithm = function(number, base) {
+    _math.log = function(number, base) {
         return Math.log(number) / (base ? Math.log(base) : 1.);
     };
 
@@ -409,6 +585,30 @@
     };
 
     /**
+     * Определить собственные методы класса
+     * @param  {function|object} fce функция-конструктор класса или экземпляр
+     * @return {array} набор собственных методов
+     */
+    _class.getOwnMethods = function(fce) {
+        // определить функцию-конструктор
+        if (typeof fce === "object") {
+            fce = fce.constructor;
+        }
+        else if (typeof fce !== "function") {
+            throw new TypeError(fce + " is not a function or object");
+        }
+        // получить набор сосбственных методов
+        var methods = [];
+        for (var property in fce.prototype) {
+            if (fce.prototype.hasOwnProperty(property)
+                    && typeof fce.prototype[property] === "function") {
+                methods.push(property);
+            }
+        }
+        return methods;
+    };
+
+    /**
      * Работа со строками ======================================================
      *
      */
@@ -434,7 +634,7 @@
     /**
      * Проверка строки регулярным выражением
      * @param  {string} str целевая строка
-     * @param  {string} regular регулярное выражение
+     * @param  {string|RegExp} regular регулярное выражение
      * @return {boolean} true/false
      */
     _string.regTest = function(str, regular) {
@@ -466,6 +666,7 @@
 
     /**
      * Удалить теги из текста
+     * @deprecated
      * @param  {string} text целевой текст
      * @return {string} текст без тегов
      */
@@ -546,7 +747,7 @@
             /** @type {Array} аргументы выполнения целевой функции */
             args: [],
             /**
-             * Функция заврешения и обработки результата
+             * Функция завершения и обработки результата
              * @function
              * @param  {object} result резульаты выполнения
              */
