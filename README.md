@@ -84,7 +84,82 @@ Excalibur = E
 ```javascript
 E.Object
 ```
-+ Map
++ [Map](#eobjectmap)
+
+#### E.Object.Map
+
+**Описание**
+
+Базовый класс карты объекта. Основной интерфейс: вернуть карту объекта, получить статистику по карте, преобразовать карту в строковой вид для чтения. 
+
+**constructor**
+
+```javascript
+var map = new E.Object.Map(obj);
+```
++ `obj`: Целевой объект.
+
+**prototype.traverse**
+
+Рекурсивный обход всех элементов карты. Возвращает экземпляр карты.
+
+```javascript
+map.traverse(callback);
+```
++ `callback`(path, node): Функция обратного вызова для обработки текущего узла. Аргументы:
+  - `path`: Строковая запись пути к текущему узлу.
+  - `node`: Текущий узел карты. 
+
+**prototype.show**
+
+Вернуть карту объекта для какой-либо обработки из вне.
+
+```javascript
+map.show();
+```
+
+**prototype.statistics**
+
+Получить статистику по карте объекта. Базовый вариант возвращает общее количество обычных свойств и функций.
+
+```javascript
+map.statistics();
+```
+
+**prototype.toString**
+
+Преобразовать карту объекта в строковый вид.
+
+```javascript
+map.toString();
+```
+
+**Примеры**
+
+Получить статистику по объекту E.Array.
+```shell
+$ var map = new E.Object.Map(E.Array);
+$ map.show();
+> Object {functions: Array[7], properties: Array[0], objects: Object}
+$ map.statistics();
+> Object {functions: 13, properties: 0}
+$ map.toString();
+> null
+     indexOfAll
+     compare
+     swap
+     sum
+     mult
+     slideAverage
+     create
+  -> sort
+       bubble
+       cocktail
+       gnome
+       quick
+       merge
+       shell
+```
 
 ## excalibur-array-sort
 [source](src/js/excalibur-array-sort.js)
