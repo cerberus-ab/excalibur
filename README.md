@@ -1,9 +1,10 @@
 # Excalibur
 _Just another javascript-native library_
 
-Всего: 7 модулей расширений, 1 константа, 50 функций, 5 классов.
+Всего: 8 модулей расширений, 1 константа, 56 функций, 7 классов.
 
 + [excalibur[-core]](#excalibur-core)
++ [excalibur-object-map](#excalibur-object-map)
 + [excalibur-array-sort](#excalibur-array-sort)
 + [excalibur-math-sequence](#excalibur-math-sequence)
 + [excalibur-math-equation](#excalibur-math-equation)
@@ -25,16 +26,21 @@ Excalibur = E
 + Object
   - extend
   - getOwnProperties
+  - getOwnMethods
   - getOwnValues
   - copy
   - copyRaw
 + Function
   - getName
   - Counter
+  - Single
 + Array
+  - indexOfAll
+  - compare
   - swap
   - sum
   - mult
+  - slideAverage
   - create
 + Math
   - GOLDEN_RATIO
@@ -45,11 +51,13 @@ Excalibur = E
   - getRandomInt
   - factorial
   - pow
-  - logarithm
+  - log
   - getCombinationNumber
   - getCombination
 + Class
   - extend
+  - getOwnMethods
+  - isClass
 + String
   - indexOfAll
   - regTest
@@ -63,6 +71,20 @@ Excalibur = E
     * isBIN
 + Performance
   - run
+
+## excalibur-object-map
+[source](src/js/excalibur-object-map.js)
+
+Модуль построения карты объектов. Здесь под картой понимается дерево собственных свойств объекта, классифицированных по типу, включая и обработку вложенных объектов.
+```html
+<script src="js/excalibur.js"></script>
+<script src="js/excalibur-object-map.js"></script>
+```
+**Пространство имен**
+```javascript
+E.Object
+```
++ Map
 
 ## excalibur-array-sort
 [source](src/js/excalibur-array-sort.js)
@@ -129,6 +151,7 @@ E.Math.sequence
 E.Math.equation
 ```
 + [dichotomy](#emathequationdichotomy)
++ getDefiniteIntegral
 
 #### E.Math.equation.dichotomy
 
@@ -142,8 +165,8 @@ E.Math.equation.dichotomy(func, range[, options]);
 ```
 + `func`: Целевая функция. 
 + `range`: Диапазон поиска.
-  - `beg`: Левая граница диапазона (Default: -10).
-  - `end`: Правая граница диапазона (Default: 10).
+  - `beg`: Левая граница диапазона (Default: -1).
+  - `end`: Правая граница диапазона (Default: 1).
 + `options`: Настройки выполнения (Optional).
   - `max`: максимальное число итераций (Default: 100).
   - `eps`: требуемая точность (Default: 0.001).
