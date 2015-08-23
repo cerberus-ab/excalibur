@@ -1,7 +1,7 @@
 # Excalibur
 _Just another javascript-native library_
 
-Всего: 9 модулей расширений, 1 константа, 61 функция, 7 классов.
+Всего: 9 модулей расширений, 1 константа, 63 функция, 7 классов.
 
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-object-map](#excalibur-object-map)
@@ -37,6 +37,7 @@ Excalibur = E
   - Single
 + Array
   - indexOfAll
+  - freak
   - compare
   - swap
   - sum
@@ -49,7 +50,8 @@ Excalibur = E
   - isPrime
   - getDividers
   - isPerfect
-  - getRandomInt
+  - random
+  - randomInt
   - factorial
   - pow
   - log
