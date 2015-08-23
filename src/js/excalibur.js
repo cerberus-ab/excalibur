@@ -543,10 +543,11 @@
      * Проверка строки регулярным выражением
      * @param  {string} str целевая строка
      * @param  {string|RegExp} regular регулярное выражение
+     * @param  {string} flags флаги (Optional)
      * @return {boolean} true/false
      */
-    _string.regTest = function(str, regular) {
-        return regular ? new RegExp(regular).test(str) : true;
+    _string.regTest = function(str, regular, flags) {
+        return regular ? new RegExp(regular, flags).test(str) : true;
     };
 
     /**
