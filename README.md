@@ -75,8 +75,40 @@ Excalibur = E
   - test
     * isHEX
     * isBIN
-+ Performance
-  - run
++ [Performance](#eperformance)
+  - [run](#eperformancerun)
+
+### E.Performance
+
+Раздел библиотеки предоставляет различные методы оценки производительности кода программы.
+
+#### E.Performance.run
+
+Оценка времени выполнения функции. Имеется возможность указать количество, контекст и аргументы вызова целевой функции.
+```javascript
+E.Performance.run(func[, attr, options]);
+```
++ `func`([args]): Выполняемая функция. Аргументы и контекст определяются настройками.
++ `attr`: Атрибуты выполнения процедуры. (Optional)
+  - `amount`: Количество вызовов. (Default: 1)
+  - `name`: Название выполняемой функции. (Default: определяется автоматически)
++ `options`: Настройки выполнения процедуры и вызова целевой функции. (Optional)
+  - `context`: Контекст вызова целевой функции. (Default: window)
+  - `args`: Аргументы вызова целевой функции. (Default: [])
+  - `end`(result): Функция обработки результатов. (Default: см. ниже)
+
+Результат выполнения процедуры содержит расширенные атрибуты выполнения:
++ `tbeg`: Абсолютное время старта процедуры.
++ `tend`: Абсолютное время конца процедуры.
+
+Функция обработки результатов по умолчанию:
+```javascript
+console.log("Run %s [%d am]: %d ms",
+  result.name,
+  result.amount,
+  result.tend.getTime() - result.tbeg.getTime()
+);
+```
 
 ## excalibur-object-map
 [source](src/js/excalibur-object-map.js)
