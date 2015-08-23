@@ -334,61 +334,13 @@ E.String.test
 E.Networks
 ```
 + E.String.test
-  - [isIPv4](#estringtestisipv4)
-  - [isMAC](#estringtestismac)
-  - [isMask](#estringtestismask)
-  - [isPort](#estringtestisport)
+  - isIPv4
+  - isMAC
+  - isMask
+  - isPort
 + E.Network
   - [getCRC16](#enetworkgetcrc16)
   - [getNetworkAddress](#enetworkgetnetworkaddress)
-
-#### E.String.test.isIPv4
-
-**Описание**
-
-Проверить является ли переданная строка десятичной записью IPv4 адреса. Возвращает true/false. 
-
-**Синтаксис**
-```javascript
-E.String.test.isIPv4(str);
-```
-+ `str`: Проверяемая строка.
-
-#### E.String.test.isMAC
-
-**Описание**
-
-Проверить является ли переданная строка записью MAC адреса. Возвращает true/false. Проверка регистронезависимая.
-
-**Синтаксис**
-```javascript
-E.String.test.isMAC(str);
-```
-+ `str`: Проверяемая строка.
-
-#### E.String.test.isMask
-
-**Описание**
-
-Проверить является ли переданная строка записью маски подсети. В случае успеха функция возвращает размер маски, иначе false.
-
-**Синтаксис**
-```javascript
-E.String.test.isMask(str);
-```
-+ `str`: Проверяемая строка.
-
-#### E.String.test.isPort
-
-**Описание**
-
-Проверить является ли переданная строка записью TCP/UDP порта. Возвращает true/false.
-
-**Синтаксис**
-```javascript
-E.String.test.isPort(str);
-```
-+ `str`: Проверяемая строка.
 
 #### E.Network.getCRC16
 
