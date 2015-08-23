@@ -164,6 +164,16 @@
     };
 
     /**
+     * Узнать сколько раз элемент встречается в массиве
+     * @param  {array} array целевой массив
+     * @param  {Mixed} needle искомый элемент
+     * @return {number:integer} количество вхождений
+     */
+    _array.freak = function(array, needle) {
+        return _array.indexOfAll(array, needle).length;
+    };
+
+    /**
      * Сравнить два массива
      * @param  {array} arr1 первый массив
      * @param  {array} arr2 второй массив
@@ -354,21 +364,26 @@
     };
 
     /**
+     * Получить случайной число в диапазоне
+     * @param  {number} arg1 левая граница
+     * @param  {number} arg2 правая граница
+     * @return {number} случайное число
+     */
+    _math.random = function(arg1, arg2) {
+        var min = arguments.length == 1 ? 0 : arg1 -0,
+            max = arguments.length == 1 ? arg1 -0 : arg2 -0;
+        return Math.random() * (max - min) + min;
+    };
+
+    /**
      * Получить случайной целое в диапазоне
-     * @param  {number:integer} range1 левая граница
-     * @param  {number:integer} range2 правая граница
+     * @param  {number:integer} arg1 левая граница
+     * @param  {number:integer} arg2 правая граница
      * @return {number:integer} случайное целое
      */
-    _math.getRandomInt = function(range1, range2) {
-        var min = range1 -0,
-            max = range2 -0;
-        if (arguments.length == 1) {
-            max = min;
-            min = 0;
-        }
-        if (isNaN(min) || isNaN(max)) {
-            throw new RangeError("Invalid range");
-        }
+    _math.randomInt = function(arg1, arg2) {
+        var min = arguments.length == 1 ? 0 : arg1 -0,
+            max = arguments.length == 1 ? arg1 -0 : arg2 -0;
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
