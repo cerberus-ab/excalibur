@@ -208,9 +208,9 @@
                 result = value -0;
                 break;
             case "string":
-                if (typeof value.toString === "function") {
-                    result = value.toString();
-                }
+                result = typeof value.toString === "function"
+                    ? value.toString()
+                    : typeof value;
                 break;
             case "array":
                 result = [value];
