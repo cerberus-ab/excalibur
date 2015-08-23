@@ -109,7 +109,7 @@
 
     /**
      * @class Функция с запоминанием числа вызовов
-     * @param {function} func целевая функция
+     * @param  {function} func целевая функция
      */
     _function.Counter = function(func) {
         var count = 0;
@@ -121,12 +121,12 @@
         // получить количество вызовов этой функции
         this.count = function() {
             return count;
-        }
+        };
     };
 
     /**
      * @class Функция с возможность лишь одного вызова
-     * @param {function} func целевая функция
+     * @param  {function} func целевая функция
      */
     _function.Single = function(func) {
         var isexec = false,
@@ -140,7 +140,49 @@
                 isexec = true;
                 return result = func.apply(this, arguments);
             }
-        }
+        };
+    };
+
+    /**
+     * @class Генератор уникального идентификатора
+     * @param  {object} options настройки
+     */
+    _function.Identifier = function(options) {
+        // настройки по умолчанию
+        options = _object.extend({
+            /** @type {string} префикс */
+            prefix: "i",
+            /** @type {number:integer} начальный номер */
+            begin: 0,
+            /** @type {number:integer} шаг инкремента */
+            step: 1
+        }, options);
+        // массив используемых и текущий индекс
+        var ids = [],
+            index = options.begin;
+        /**
+         * Вернуть следующий идентификатор
+         * @return {string} id
+         */
+        this.next = function() {
+            ids.push(options.prefix + index);
+            index += options.step;
+            return ids[ids.length -1];
+        };
+        /**
+         * Получить количество используемых идентификаторов
+         * @return {number:integer} количество
+         */
+        this.size = function() {
+            return ids.length;
+        };
+        /**
+         * Очистить список используемых идентификаторов
+         */
+        this.empty = function() {
+            ids.length = 0;
+            index = options.begin;
+        };
     };
 
     /**
