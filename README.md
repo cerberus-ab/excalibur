@@ -1,10 +1,11 @@
 # Excalibur
 _Just another javascript-native library_
 
-Всего: 8 модулей расширений, 1 константа, 56 функций, 7 классов.
+Всего: 9 модулей расширений, 1 константа, 61 функция, 7 классов.
 
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-object-map](#excalibur-object-map)
++ [excalibur-string-form](#excalibur-string-form)
 + [excalibur-array-sort](#excalibur-array-sort)
 + [excalibur-math-sequence](#excalibur-math-sequence)
 + [excalibur-math-equation](#excalibur-math-equation)
@@ -159,6 +160,24 @@ $ map.toString();
        merge
        shell
 ```
+
+## excalibur-string-form
+[source](src/js/excalibur-string-form.js)
+
+Модуль расширения строковых проверок для часто используемых пользовательских данных в формах.
+```html
+<script src="js/excalibur.js"></script>
+<script src="js/excalibur-string-form.js"></script>
+```
+**Пространство имен**
+```javascript
+E.String.test
+```
++ isLogin
++ isPassword
++ isURL
++ isEmail
++ isPhoneNumber
 
 ## excalibur-array-sort
 [source](src/js/excalibur-array-sort.js)
