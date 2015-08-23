@@ -114,7 +114,7 @@ map.traverse(callback);
 Вернуть карту объекта для какой-либо обработки из вне.
 
 ```javascript
-map.show(callback);
+map.show();
 ```
 
 **prototype.statistics**
@@ -122,7 +122,7 @@ map.show(callback);
 Получить статистику по карте объекта. Базовый вариант возвращает общее количество обычных свойств и функций.
 
 ```javascript
-map.statistics(callback);
+map.statistics();
 ```
 
 **prototype.toString**
@@ -130,7 +130,7 @@ map.statistics(callback);
 Преобразовать карту объекта в строковый вид.
 
 ```javascript
-map.toString(callback);
+map.toString();
 ```
 
 **Примеры**
@@ -191,13 +191,15 @@ E.String.test
 E.Array.sort
 ```
 
+#### E.Array.sort[algo]
+
 Сортирует элементы целевого массива, используя указанный алгоритм сортировки и функцию сравнения пар элементов. Изменяет и возвращает исходный массив.
 
 ```javascript
-E.Array.sort[name](array[, reverse]);
-E.Array.sort[name](array, compare[, reverse]);
+E.Array.sort[algo](array[, reverse]);
+E.Array.sort[algo](array, compare[, reverse]);
 ```
-+ `name`: Используемый алгоритм сортировки (см. список доступных ниже).
++ `algo`: Используемый алгоритм сортировки (см. список доступных ниже).
 + `array`: Целевой массив элементов.
 + `compare`: Используемая функция сравнения пар элементов. (Optional)
 + `reverse`: Флаг реверсии используемой функции сравнения. (Optional, Default: false)
@@ -252,11 +254,11 @@ E.Math.equation.dichotomy(func, range[, options]);
 ```
 + `func`(arg): Целевая функция от аргумента. 
 + `range`: Диапазон поиска.
-  - `beg`: Левая граница диапазона (Default: -1).
-  - `end`: Правая граница диапазона (Default: 1).
-+ `options`: Настройки выполнения (Optional).
-  - `max`: максимальное число итераций (Default: 100).
-  - `eps`: требуемая точность (Default: 0.001).
+  - `beg`: Левая граница диапазона. (Default: -1)
+  - `end`: Правая граница диапазона. (Default: 1)
++ `options`: Настройки выполнения. (Optional)
+  - `max`: максимальное число итераций. (Default: 100)
+  - `eps`: требуемая точность. (Default: 0.001)
 
 **Примеры**
 
@@ -290,11 +292,11 @@ E.Math.equation.getDefiniteIntegral(func, range[, options]);
 ```
 + `func`(arg): Подынтегральная функция от аргумента. 
 + `range`: Отрезок интегрирования.
-  - `beg`: Нижняя граница отрезка (Default: -1).
-  - `end`: Верхняя граница отрезка (Default: 1).
-+ `options`: Настройки выполнения (Optional).
-  - `algo`: Используемый алгоритм: rect (Default: rect).
-  - `quant`: Количество квантов, участков разбиения (Default: 1000).
+  - `beg`: Нижняя граница отрезка. (Default: -1)
+  - `end`: Верхняя граница отрезка. (Default: 1)
++ `options`: Настройки выполнения. (Optional)
+  - `algo`: Используемый алгоритм: rect. (Default: rect)
+  - `quant`: Количество квантов, участков разбиения. (Default: 1000)
 
 **Примеры**
 
@@ -417,7 +419,7 @@ tree.size();
 ```javascript
 tree.keys([order]);
 ```
-+ `order`: Порядок обхода элементов. См. prototype.traverse.
++ `order`: Порядок обхода элементов (см. prototype.traverse).
 
 **prototype.values**
 
@@ -426,7 +428,7 @@ tree.keys([order]);
 ```javascript
 tree.values([order]);
 ```
-+ `order`: Порядок обхода элементов. См. prototype.traverse.
++ `order`: Порядок обхода элементов (см. prototype.traverse).
 
 #### E.Structure.BinarySearchTree
 
