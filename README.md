@@ -1,7 +1,7 @@
 # Excalibur
 _Just another javascript-native library_
 
-Всего: 9 модулей расширений, 1 константа, 63 функции, 8 классов.
+Всего: 9 модулей расширений, 1 константа, 64 функции, 8 классов.
 
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-object-map](#excalibur-object-map)
@@ -36,6 +36,8 @@ Excalibur = E
   - Counter
   - Single
   - Identifier
++ Variable
+  - conv
 + Array
   - indexOfAll
   - freak
