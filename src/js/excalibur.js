@@ -186,6 +186,44 @@
     };
 
     /**
+     * Методы работы с переменными =============================================
+     *
+     */
+    var _variable = E.Variable = {};
+
+    /**
+     * Явное приведение типа переменной
+     * @deprecated
+     * @param  {Mixed} value переменная
+     * @param  {string} type требуемый тип (Default: boolean)
+     * @return {Mixed} приведенная переменная
+     */
+    _variable.conv = function(value, type) {
+        var result;
+        switch (type || "boolean") {
+            case "boolean":
+                result = !!value;
+                break;
+            case "number":
+                result = value -0;
+                break;
+            case "string":
+                if (typeof value.toString === "function") {
+                    result = value.toString();
+                }
+                break;
+            case "array":
+                result = [value];
+                break;
+            case "object":
+                result = { property: value };
+                break;
+            // no default;
+        }
+        return result;
+    };
+
+    /**
      * Методы работы с массивами ===============================================
      *
      */
