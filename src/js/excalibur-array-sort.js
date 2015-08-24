@@ -33,7 +33,7 @@
          * @param  {function|boolean} arg2 функция сравнения или реверс
          * @return {boolean|undefined} arg3 реверс
          */
-        return function(array, arg2, arg3) {
+        return function sortAlgo(array, arg2, arg3) {
             // заданная функция сортировки
             var compare = typeof arg2 === "function"
                 ? arg2 : settings.compare;

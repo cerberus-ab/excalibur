@@ -28,6 +28,21 @@
     };
 
     /**
+     * Обойти собственные свойства объекта
+     * @param  {object} obj целевой объект
+     * @param  {function} callback выполняемая функция
+     * @param  {Mixed} thisArg контекст выполняемой функции
+     */
+    _object.forEach = function(obj, callback, thisArg) {
+        if (arguments.length < 3) {
+            thisArg = window;
+        }
+        for (var property in obj) if (obj.hasOwnProperty(property)) {
+            callback.call(thisArg, obj[property], property, obj);
+        }
+    };
+
+    /**
      * Получить перечень собственных свойств объекта
      * @param  {object} obj целевой объект
      * @return {array} набор собственных свойств
@@ -365,6 +380,20 @@
                 break;
         }
         return Array.apply(null, { length: length }).map(callback);
+    };
+
+    /**
+     * Создать массив из случайных целых чисел
+     * @param  {number:integer} length количество элементов
+     * @param  {number:integer} arg1 левая граница диапазона
+     * @param  {number:integer} arg2 правая граница диапазона
+     * @return {Array} новый массив
+     */
+    _array.createRandomInt = function(length, arg1, arg2) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        return _array.create(length, function creator() {
+            return _math.randomInt.apply(this, args);
+        });
     };
 
     /**
