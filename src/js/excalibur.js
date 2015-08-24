@@ -293,37 +293,35 @@
     };
 
     /**
-     * Вычислить сумму элементов массива
+     * Вычислить сумму набора элементов
      * @param  {array} array целевой массив
-     * @param  {function} adder функция сложения
-     * @param  {Mixed} initial начальное значение (Optional, Default: 0)
-     * @return {Mixed} результат сложения
+     * @param  {function} getter функция получения значимой величины
+     * @param  {number} initial начальное значение (Optional, Default: 0)
+     * @return {number} результат сложения
      */
-    _array.sum = function(array, adder, initial) {
-        if (typeof adder !== "function") {
-            adder = function(previous, current, index, array) {
-                return previous + (typeof current !== "number" ? 0 : current);
-            }
-        }
-        initial = initial || 0;
-        return array.reduce(adder, initial);
+    _array.sum = function(array, getter, initial) {
+        getter = getter || function(current) {
+            return typeof current !== "number" ? 0 : current;
+        };
+        return array.reduce(function(previous, current) {
+            return previous + getter.call(array, current);
+        }, initial || 0);
     };
 
     /**
-     * Вычислить произведение элементов массива
+     * Вычислить произведение набора элементов
      * @param  {array} array целевой массив
-     * @param  {function} multer функция произведения
-     * @param  {Mixed} initial начальное значение (Optional, Default: 1)
-     * @return {Mixed} результат сложения
+     * @param  {function} getter функция получения значимой величины
+     * @param  {number} initial начальное значение (Optional, Default: 1)
+     * @return {number} результат произведения
      */
-    _array.mult = function(array, multer, initial) {
-        if (typeof multer !== "function") {
-            multer = function(previous, current, index, array) {
-                return previous * (typeof current !== "number" ? 1 : current);
-            }
-        }
-        initial = initial || 1;
-        return array.reduce(multer, initial);
+    _array.mult = function(array, getter, initial) {
+        getter = getter || function(current) {
+            return typeof current !== "number" ? 1 : current;
+        };
+        return array.reduce(function(previous, current) {
+            return previous * getter.call(array, current);
+        }, initial || 1);
     };
 
     /**
