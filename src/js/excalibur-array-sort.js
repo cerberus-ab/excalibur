@@ -74,13 +74,13 @@
             right = len -1;
         do {
             for (i = left; i != right; ++i) {
-                if (compare(array[i], array[i +1])) {
+                if (compare(array[i], array[i +1]) > 0) {
                     E.Array.swap(array, i, i +1);
                 }
             }
             right--;
             for (i = right; i != left; --i) {
-                if (!compare(array[i], array[i -1])) {
+                if (compare(array[i], array[i -1]) < 0) {
                     E.Array.swap(array, i, i -1);
                 }
             }
@@ -96,7 +96,7 @@
         var i = 0,
             len = array.length;
         while (i != len) {
-            if (i == 0 || !compare(array[i -1], array[i])) {
+            if (i == 0 || compare(array[i -1], array[i]) <= 0) {
                 ++i;
             }
             else {
