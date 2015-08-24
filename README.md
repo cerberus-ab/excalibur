@@ -1,7 +1,7 @@
 # Excalibur
 _Just another javascript-native library_
 
-Всего: 9 модулей расширений, 1 константа, 64 функции, 8 классов.
+Всего: 9 модулей расширений, 1 константа, 66 функций, 8 классов.
 
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-object-map](#excalibur-object-map)
@@ -26,6 +26,7 @@ Excalibur = E
 ```
 + Object
   - extend
+  - forEach
   - getOwnProperties
   - getOwnMethods
   - getOwnValues
@@ -47,6 +48,7 @@ Excalibur = E
   - mult
   - slideAverage
   - create
+  - createRandomInt
 + Math
   - GOLDEN_RATIO
   - isInteger
@@ -108,6 +110,32 @@ console.log("Run %s [%d am]: %d ms",
   result.amount,
   result.tend.getTime() - result.tbeg.getTime()
 );
+```
+
+**Примеры**
+
+Сравнение производительности различных алгоритмов сортировки на примере набора случайных целых чисел. Будут оценены алгоритмы сортировки, реализованные в самой библиотеке. Функция принимает два аргумента: количество элементов в сортируемом наборе и количество вызовов процедуры генерации набора и его сортировки.
+```javascript
+function sortPerformance(size, amount) {
+  E.Object.forEach(E.Array.sort, function(sort, name) {
+      E.Performance.run(function() {
+          sort(E.Array.createRandomInt(size, 1000));
+      }, {
+          amount: amount,
+          name: name + "(" + size + ", random)"
+      });
+  });
+}
+```
+Результат выполнения функции для наборов из 200 случайных целых чисел и при 1000 вызовах процедуры. Как видно, при таких исходных данных гномья сортировка значительно уступает остальным, а быстрая сортировка и сортировка Шелла - явные фавориты.
+```shell
+$ sortPerformance(200, 1000)
+> Run bubble(200, random) [1000 am]: 178 ms
+  Run cocktail(200, random) [1000 am]: 152 ms
+  Run gnome(200, random) [1000 am]: 468 ms
+  Run quick(200, random) [1000 am]: 55 ms
+  Run merge(200, random) [1000 am]: 88 ms
+  Run shell(200, random) [1000 am]: 48 ms
 ```
 
 ## excalibur-object-map
