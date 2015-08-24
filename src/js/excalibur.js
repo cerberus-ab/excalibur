@@ -327,26 +327,6 @@
     };
 
     /**
-     * Простое скользящее среднее по набору элементов
-     * @param  {array} array целевой массив
-     * @param  {function} adder функция сложения
-     * @param  {Mixed} initial начальное значение (Optional, Default: 0)
-     * @return {array} скользящее среднее
-     */
-    _array.slideAverage = function(array, adder, initial) {
-        if (typeof adder !== "function") {
-            adder = function(previous, current, index, array) {
-                return previous + (typeof current !== "number" ? 0 : current);
-            }
-        }
-        var sum = initial || 0;
-        return array.map(function(current, index, array) {
-            sum = adder(sum, current, index, array);
-            return sum / (index + 1);
-        });
-    };
-
-    /**
      * Создание массива
      * @param  {integer} length размер массива
      * @param  {function} creator функция создания элементов
@@ -618,15 +598,8 @@
         else if (typeof fce !== "function") {
             throw new TypeError(fce + " is not a function or object");
         }
-        // получить набор сосбственных методов
-        var methods = [];
-        for (var property in fce.prototype) {
-            if (fce.prototype.hasOwnProperty(property)
-                    && typeof fce.prototype[property] === "function") {
-                methods.push(property);
-            }
-        }
-        return methods;
+        // делегирование вызова
+        return _object.getOwnMethods(fce.prototype);
     };
 
     /**
