@@ -393,6 +393,15 @@
     };
 
     /**
+     * Проверить является ли число натуральным
+     * @param  {number} numb число
+     * @return {boolean} true/false
+     */
+    _math.isNatural = function(numb) {
+        return _math.isInteger(numb) && numb >= 0;
+    };
+
+    /**
      * Проверить является ли целое число простым
      * @deprecated
      * @param  {number} numb число
@@ -442,12 +451,22 @@
 
     /**
      * Проверить является ли целое число совершенным
-     * @param  {number}  numb число
-     * @return {boolean} true/false
+     * @param   {number}  numb число
+     * @return  {boolean} true/false
      */
     _math.isPerfect = function(numb) {
         return _math.isInteger(numb) && numb > 0
             && _array.sum(_math.getDividers(numb)) == numb;
+    };
+
+    /**
+     * Проверить является ли число фигурным k-угольным
+     * @param  {number} numb число
+     * @param  {number:integer} k количество углов фигуры
+     * @return {boolean} true/false
+     */
+    _math.isFigurate = function(numb, k) {
+        return _math.isNatural(_math.quadratic(k - 2, 4 - k, -2 * numb)[1]);
     };
 
     /**
@@ -511,6 +530,21 @@
             }
         }
         return result;
+    };
+
+    /**
+     * Решение квадратного уравнения через дискриминант
+     * @param  {number} a первый коэффициент
+     * @param  {number} b второй коэффициент
+     * @param  {number} c третий коэффициент
+     * @return {Array} корни уравнения
+     */
+    _math.quadratic = function(a, b, c) {
+        var D = b * b - 4 * a * c;
+        return [
+            (-b - Math.sqrt(D)) / a / 2,
+            (-b + Math.sqrt(D)) / a / 2
+        ];
     };
 
     /**

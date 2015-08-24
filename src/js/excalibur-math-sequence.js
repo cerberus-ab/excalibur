@@ -7,34 +7,6 @@
     var _sequence = E.Math.sequence = {};
 
     /**
-     * Функция-билдер функция последовательностей
-     * @param {function} creator функция создания следующего элемента
-     * @param {object} options настройки инициализации
-     */
-    function SequenceBuilder(creator, options) {
-        // настройки по умолчанию
-        options = E.Object.extend({
-            /** @type {Array} начальные элементы */
-            initial: []
-        }, options);
-        /** @type {Array} последовательность */
-        var seq = Array.isArray(options.initial) ? options.initial : [];
-        /**
-         * Вернуть функцию последовательности
-         * @param  {integer} numb индекс требуемого числа
-         * @param  {boolean:false} all получить всю последовательность
-         * @return {number|Array} требуемое число или вся последовательность
-         */
-        return function(numb, all) {
-            for (var index = seq.length; index < numb; ++index) {
-                seq.push(creator(index, seq));
-            }
-            return all ? seq.slice(0, numb) : seq[numb -1];
-        }
-    };
-
-
-    /**
      * Получить арифметическую прогрессию
      * @param  {number} beg начальный член
      * @param  {number} diff разность прогрессии
@@ -60,6 +32,33 @@
         return all ? E.Array.create(numb, function(currentValue, index) {
             return beg * E.Math.pow(ratio, index);
         }) : beg * E.Math.pow(ratio, numb - 1);
+    };
+
+    /**
+     * Функция-билдер функция последовательностей
+     * @param {function} creator функция создания следующего элемента
+     * @param {object} options настройки инициализации
+     */
+    function SequenceBuilder(creator, options) {
+        // настройки по умолчанию
+        options = E.Object.extend({
+            /** @type {Array} начальные элементы */
+            initial: []
+        }, options);
+        /** @type {Array} последовательность */
+        var seq = Array.isArray(options.initial) ? options.initial : [];
+        /**
+         * Вернуть функцию последовательности
+         * @param  {integer} numb индекс требуемого числа
+         * @param  {boolean:false} all получить всю последовательность
+         * @return {number|Array} требуемое число или вся последовательность
+         */
+        return function Sequence(numb, all) {
+            for (var index = seq.length; index < numb; ++index) {
+                seq.push(creator(index, seq));
+            }
+            return all ? seq.slice(0, numb) : seq[numb -1];
+        }
     };
 
     /**
