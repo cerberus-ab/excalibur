@@ -54,14 +54,17 @@ Excalibur = E
 + Math
   - GOLDEN_RATIO
   - isInteger
+  - isNatural
   - isPrime
   - getDividers
   - isPerfect
+  - isFigurate
   - random
   - randomInt
   - factorial
   - pow
   - log
+  - quadratic
   - getCombinationNumber
   - getCombination
 + Class
