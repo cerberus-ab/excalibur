@@ -35,6 +35,24 @@
     };
 
     /**
+     * Получить фигурное k-угольное число или последовательность
+     * @param  {number:integer} numb индекс требуемого числа
+     * @param  {number:integer} k количество углов фигуры
+     * @param  {boolean} all получить всю последовательность (Default: false)
+     * @return {number|Array} требуемое число или вся последовательность
+     */
+    _sequence.figurate = (function() {
+        function create(i, k) {
+            return i * ((k - 2) * (i - 1) + 2) / 2;
+        }
+        return function(numb, k, all) {
+            return all ? E.Array.create(numb, function(current, index) {
+                return create(index +1, k);
+            }) : create(numb, k);
+        };
+    })();
+
+    /**
      * Функция-билдер функция последовательностей
      * @param {function} creator функция создания следующего элемента
      * @param {object} options настройки инициализации
@@ -46,7 +64,7 @@
             initial: []
         }, options);
         /** @type {Array} последовательность */
-        var seq = Array.isArray(options.initial) ? options.initial : [];
+        var seq = options.initial;
         /**
          * Вернуть функцию последовательности
          * @param  {integer} numb индекс требуемого числа
