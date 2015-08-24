@@ -3,11 +3,12 @@ _Just another javascript-native library_
 
 Настоящая библиотека не является готовым профессиональным решением тех или иных задач. Это своего рода коллекция различного полезного функционала и реализаций популярных и интересных общих решений, в которых я испытывал потребность или был искушен в течение своего опыта клиентской (да и серверной) разработки на JavaScript. Модули библиотеки не имеют внешних зависимостей и выполнены на нативном JavaScript. В случае использования в элементах библиотеки решений других разработчиков я буду указывать их в аннотациях к заимствованным кускам кода.
 
-Всего: 9 модулей расширений, 1 константа, 66 функций, 8 классов.
+Всего: 9 модулей расширений, 1 константа, 69 функций, 8 классов.
 
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-object-map](#excalibur-object-map)
 + [excalibur-string-form](#excalibur-string-form)
++ [excalibur-array-average](#excalibur-array-average)
 + [excalibur-array-sort](#excalibur-array-sort)
 + [excalibur-math-sequence](#excalibur-math-sequence)
 + [excalibur-math-equation](#excalibur-math-equation)
@@ -48,7 +49,6 @@ Excalibur = E
   - swap
   - sum
   - mult
-  - slideAverage
   - create
   - createRandomInt
 + Math
@@ -275,6 +275,23 @@ E.Array.sort[algo](array, compare[, reverse]);
 + `quick` Быстрая сортировка
 + `merge` Сортировка слиянием
 + `shell` Сортировка Шелла
+
+## excalibur-array-average
+[source](src/js/excalibur-array-average.js)
+
+Модуль различных процедур определения среднего значения по набору элементов.
+```html
+<script src="js/excalibur.js"></script>
+<script src="js/excalibur-array-average.js"></script>
+```
+**Пространство имен**
+```javascript
+E.Array.average
+```
++ get
++ step
++ sma
++ wma
 
 ## excalibur-math-sequence
 [source](src/js/excalibur-math-sequence.js)
