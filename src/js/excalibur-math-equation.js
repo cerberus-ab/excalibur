@@ -57,7 +57,7 @@
     /**
      * Численное взятие определенного интеграла
      * @deprecated
-     * @param  {function} func подинтегральная функция
+     * @param  {function} func подынтегральная функция
      * @param  {object} range диапазон
      * @param  {object} options настройки
      * @return {number} значение интеграла
@@ -90,6 +90,20 @@
             default:
                 return undefined;
         }
+    };
+
+    /**
+     * Численное дифференцирование (первого порядка) функции в точке
+     * метод двусторонней разности
+     * @deprecated
+     * @param  {function} func дифференцируемая функция
+     * @param  {number} arg аргумент функции
+     * @param  {number} step шаг дифференцирования (Optional, Default: 0.001)
+     * @return {number} значение первой производной функции в этой точке
+     */
+    _equation.getDifferent = function(func, arg, step) {
+        step = step || .001;
+        return (func(arg + step) - func(arg - step)) / step / 2;
     };
 
 }(Excalibur);
