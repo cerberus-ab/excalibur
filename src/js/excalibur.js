@@ -391,6 +391,15 @@
     };
 
     /**
+     * Перемешать массив в случайном порядке
+     * @param  {Array} array целевой массив
+     * @return {Array} новый массив
+     */
+    _array.randomize = function(array) {
+        return _array.popRandom(array, array.length);
+    };
+
+    /**
      * Математические функции ==================================================
      *
      */
