@@ -540,10 +540,10 @@
      * @return {Array} корни уравнения
      */
     _math.quadratic = function(a, b, c) {
-        var D = b * b - 4 * a * c;
+        var sqrtD = Math.sqrt(b * b - 4 * a * c);
         return [
-            (-b - Math.sqrt(D)) / a / 2,
-            (-b + Math.sqrt(D)) / a / 2
+            (-b - sqrtD) / a / 2,
+            (-b + sqrtD) / a / 2
         ];
     };
 
