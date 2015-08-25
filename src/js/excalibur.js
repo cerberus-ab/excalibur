@@ -375,10 +375,32 @@
     };
 
     /**
+     * Достать случайный элемент(ы) из массива
+     * изменяет исходный массив!
+     * @param  {Array} array целевой массив
+     * @param  {number:integer} amount количество требуемых элементов (Optional, Default: 1)
+     * @return {Mixed|Array} случайнй элемент или набор
+     */
+    _array.popRandom = function(array, amount) {
+        amount = amount || 1;
+        var result = [];
+        while (amount-- && array.length) {
+            result.push(array.splice(_math.randomInt(array.length -1), 1)[0]);
+        }
+        return result.length > 1 ? result : result[0];
+    };
+
+    /**
      * Математические функции ==================================================
      *
      */
     var _math = E.Math = {};
+
+    /** @type {number} константа Пифагора (~1.414) */
+    _math.PYTHAGORAS = Math.sqrt(2);
+
+    /** @type {number} константа Феодора (~1.732) */
+    _math.THEODORUS = Math.sqrt(3);
 
     /** @type {number} золотое сечение (~1.618) */
     _math.GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
