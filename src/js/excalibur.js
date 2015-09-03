@@ -753,6 +753,25 @@
     };
 
     /**
+     * Удалить комментарии из текста
+     * @param  {string} text целевой текст
+     * @author Ryan Wheale (from stackoverflow.com)
+     * @return {string} текст без комментариев
+     */
+    _string.rmComments = function(text) {
+        str.replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:\/\/(?:.*)$)/gm, "");
+    };
+
+    /**
+     * Минификация json-текста (удаление комментариев и пробелов)
+     * @param  {string:json} json целевой json
+     * @return {string:json} результат
+     */
+    _string.minifyJSON = function(json) {
+        return rmSpaces(rmComments(json));
+    };
+
+    /**
      * Получить запись объекта с фиксированной длиной
      * @param  {Mixed} target целевой объект
      * @param  {number:integer} length требуемая длина
