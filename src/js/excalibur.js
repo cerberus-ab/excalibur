@@ -759,7 +759,7 @@
      * @return {string} текст без комментариев
      */
     _string.rmComments = function(text) {
-        text.replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:\/\/(?:.*)$)/gm, "");
+        return text.replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:\/\/(?:.*)$)/gm, "");
     };
 
     /**
