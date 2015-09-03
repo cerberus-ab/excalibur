@@ -768,7 +768,7 @@
      * @return {string:json} результат
      */
     _string.minifyJSON = function(json) {
-        return rmSpaces(rmComments(json));
+        return _string.rmSpaces(_string.rmComments(json));
     };
 
     /**
