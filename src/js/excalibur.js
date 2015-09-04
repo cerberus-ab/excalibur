@@ -1,6 +1,32 @@
+/**
+ * Excalibur[-core].js 0.3.0
+ * https://github.com/cerberus-ab/excalibur
+ * (c) 2015 Antony Belov <cerberus.ab@mail.ru>
+ * Excalibur may be freely distributed under the MIT License
+ *
+ */
 !function() {
 
-    window.E = window.Excalibur = {};
+    var root = this;
+
+    var E = Excalibur = {};
+
+    // инициализация как модуль или в глобальном контексте
+    if (typeof exports !== "undefined") {
+        if (typeof module !== "undefined" && module.exports) {
+            exports = module.exports = E;
+        }
+        exports.E = E;
+    } else {
+        root.E = E;
+    }
+
+    // как AMD-модуль
+    if (typeof define === "function" && define.amd) {
+        define("excalibur", [], function() {
+          return E;
+        });
+    }
 
     /**
      * Методы работы с объектами ===============================================
@@ -864,4 +890,4 @@
         return attrs;
     };
 
-}();
+}.call(this);
