@@ -4,32 +4,57 @@
  */
 !function(E) {
 
-    var _string = E.String;
+    var _string = E.String,
+        _object = E.Object;
 
     /**
-     * Проверка строки на логин:
-     *   3-16 символов,
-     *   латиница, цифры, дефис и подчеркивание,
+     * Проверки строки на валидный логин:
+     *   латиница, цифры, дефис и подчеркивание;
      *   строка должна начинаться с буквы
      *
-     * @param  {string} str целевая строка
-     * @return {boolean} true/false
+     * @function
+     * @name E.String.test.isLogin
+     * @param {string} str Целевая строка
+     * @param {object} options Настройки проверки
+     * @returns {boolean}
      */
-    _string.test.isLogin = function(str) {
-        return _string.regTest(str, "^[a-z][a-z0-9_-]{2,15}$", "i");
+    _string.test.isLogin = function(str, options) {
+        options = _object.extend({
+            /** @property {number:integer} Минимальная длина строки */
+            min: 3,
+            /** @property {number:integer} Максимальная длина строки */
+            max: 15
+        }, options);
+
+        return _string.regTest(str, '^[a-z][a-z0-9_-]{'
+                + (options.min - 1) + ','
+                + options.max + '}$',
+            'i');
     };
 
     /**
-     * Проверка строки на пароль:
-     *   6-40 символов,
+     * Проверка строки на валидный пароль:
      *   латиница, цифры, дефис и подчеркивание,
      *   восклицательный и вопросительный знаки, собака
      *
-     * @param  {string} str целевая строка
-     * @return {boolean} true/false
+     * @function
+     * @name E.String.test.isPassword
+     * @param {string} str Целевая строка
+     * @param {object} options Настройки проверки
+     * @returns {boolean}
      */
-    _string.test.isPassword = function(str) {
-        return _string.regTest(str, "^[a-z0-9_\!\?\@-]{6,40}$", "i");
+    _string.test.isPassword = function(str, options) {
+        options = _object.extend({
+            /** @property {number:integer} Минимальная длина строки */
+            min: 6,
+            /** @property {number:integer} Максимальная длина строки */
+            max: 40
+        }, options);
+
+        return _string.regTest(str, '^[a-z0-9_\!\?\@-]{'
+                + options.min + ','
+                + options.max + '}$',
+            'i');
     };
 
     /**
