@@ -141,11 +141,11 @@
      *
      * @function
      * @name E.Function.bind
-     * @param {Mixed} context Новый контекст
      * @param {function} func Целевая функция
+     * @param {Mixed} context Новый контекст
      * @returns {function}
      */
-    _function.bind = function(context, func) {
+    _function.bind = function(func, context) {
         return function() {
             return func.apply(context, arguments);
         }
