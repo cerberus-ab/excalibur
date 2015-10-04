@@ -712,6 +712,31 @@
     _string.test = {};
 
     /**
+     * Экранирование спецсимволов HTML в тексте для вывода
+     *
+     * @function
+     * @name E.String.escapeHTML
+     * @param {string} text Целевой текст с разметкой
+     * @returns {string}
+     */
+    _string.escapeHTML = (function() {
+        var esymb = {
+            '&':    '&amp;',
+            '<':    '&lt;',
+            '>':    '&gt;',
+            '\"':   '&quot;',
+            '\'':   '&#39;',
+            '/':    '&#x2F;',
+            ' ':    '&nbsp;'
+        };
+        return function(text) {
+            return String(text).replace(/[&<>"'\/ ]/g, function(s) {
+                return esymb[s];
+            });
+        }
+    })();
+
+    /**
      * Найти все вхождения подстроки в строку
      * @param  {string} str целевая строка
      * @param  {string} needle искомая подстрока
