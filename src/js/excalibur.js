@@ -137,6 +137,21 @@
     var _function = E.Function = {};
 
     /**
+     * Биндинг функции
+     *
+     * @function
+     * @name E.Function.bind
+     * @param {Mixed} context Новый контекст
+     * @param {function} func Целевая функция
+     * @returns {function}
+     */
+    _function.bind = function(context, func) {
+        return function() {
+            return func.apply(context, arguments);
+        }
+    };
+
+    /**
      * Получить название функции
      * @param  {function} func целевая функция
      * @return {string} название функции
@@ -269,6 +284,18 @@
      *
      */
     var _array = E.Array = {};
+
+    /**
+     * Проверка является ли переменная массивом
+     *
+     * @function
+     * @name E.Array.isArray
+     * @param {Mixed} value Целевая переменная
+     * @returns {boolean}
+     */
+    _array.isArray = function(value) {
+        return value instanceof Array;
+    };
 
     /**
      * Найти все вхождения элемента в массиве
