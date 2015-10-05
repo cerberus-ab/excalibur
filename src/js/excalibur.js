@@ -942,4 +942,15 @@
         return attrs;
     };
 
+    /**
+     * Set immediate function
+     *
+     * @function
+     * @name E.Performance.setImmediate
+     * @param {function} callback
+     */
+    _performance.setImmediate = function(callback) {
+        setTimeout(callback, 0);
+    };
+
 }.call(this);

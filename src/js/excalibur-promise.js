@@ -8,6 +8,9 @@
 
     'use strict';
 
+    // used performance module
+    var _performance = E.Performance;
+
     /**
      * Promise
      *
@@ -161,10 +164,10 @@
 
     _promise.prototype.then = function(onFulfilled, onRejected) {
         var self = this;
-        return new Promise(function(resolve, reject) {
+        return new _promise(function(resolve, reject) {
             self._handle(new Deferred(onFulfilled, onRejected, resolve, reject));
         });
-    }
+    };
 
     function Deferred(onFulfilled, onRejected, resolve, reject) {
         this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
