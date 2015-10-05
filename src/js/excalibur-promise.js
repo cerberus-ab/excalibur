@@ -3,18 +3,37 @@
  *
  * @module
  * @dependence excalibur-core
+ * @returns {class} E.Promise
  */
 !function(E) {
-
     'use strict';
 
     // used performance module
     var _performance = E.Performance;
 
     /**
+     * Deferred
+     *
+     * @class
+     * @constructor
+     * @name Deferred
+     * @param {function} onFulfilled
+     * @param {function} onRejected
+     * @param {function} resolve
+     * @param {function} reject
+     */
+    function _Deferred(onFulfilled, onRejected, resolve, reject) {
+        this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
+        this.onRejected = typeof onRejected === 'function' ? onRejected : null;
+        this.resolve = resolve;
+        this.reject = reject;
+    }
+
+    /**
      * Promise
      *
      * @class
+     * @constructor
      * @name E.Promise
      * @param {function} executor Execute function
      */
@@ -25,6 +44,8 @@
         if (typeof executor !== 'function') {
             throw new TypeError(executor + ' is not a function');
         }
+
+        console.log(this.constructor);
 
         /**
          * Promise's state
@@ -53,7 +74,6 @@
          */
         this._deferreds = [];
 
-
         // Execute function
         this._execute(executor);
     };
@@ -63,7 +83,7 @@
      *
      * @method
      * @private
-     * @name E.Promise._resolve
+     * @name E.Promise.prototype._resolve
      * @param {Mixed} result Resolve result
      * @returns {undefined}
      */
@@ -83,8 +103,8 @@
      *
      * @method
      * @private
-     * @name E.Promise._reject
-     * @param {Mixed} result Reject reason
+     * @name E.Promise.prototype._reject
+     * @param {Mixed} reason Reject reason
      * @returns {undefined}
      */
     _promise.prototype._reject = function(reason) {
@@ -99,7 +119,7 @@
      *
      * @method
      * @private
-     * @name E.Promise._execute
+     * @name E.Promise.prototype._execute
      * @param {function} executor Execute function
      * @returns {undefined}
      */
@@ -120,61 +140,83 @@
         }
     };
 
+    /**
+     * Handle a deferred on promise
+     *
+     * @method
+     * @private
+     * @name E.Promise.prototype._handle
+     * @param {Deferred} deferred
+     * @returns {undefined}
+     */
     _promise.prototype._handle = function(deferred) {
         var self = this;
-
         if (this.isPending()) {
             this._deferreds.push(deferred);
             return;
         }
 
-        var isResolved = this._state === 'resolved',
-            callback = isResolved ? deferred.onFulfilled : deferred.onRejected;
+        _performance.setImmediate(function() {
+            var isResolved = self._state === 'resolved',
+                callback = isResolved ? deferred.onFulfilled : deferred.onRejected;
+            if (callback === null) {
+                (isResolved ? deferred.resolved : deferred.reject)(self._result);
+                return;
+            }
+            var result;
+            try {
+                result = callback(self._result);
 
-        if (callback === null) {
-            (isResolved ? deferred.resolved : deferred.reject)(this._result);
-            return;
-        }
-
-        var result;
-        try {
-            result = callback(this._result);
-
-        } catch (ex) {
-            deferred.reject(ex);
-            return;
-        }
-        deferred.resolve(result);
+            } catch (ex) {
+                deferred.reject(ex);
+                return;
+            }
+            deferred.resolve(result);
+        });
     };
+
+    // Public promise prototype methods ========================================
 
     /**
      * Check promise pending state
      *
      * @method
-     * @name E.Promise.isPending
+     * @name E.Promise.prototype.isPending
      * @returns {boolean}
      */
     _promise.prototype.isPending = function() {
         return this._state === 'pending';
     };
 
+    /**
+     * Add reaction to promise
+     *
+     * @method
+     * @name E.Promise.prototype.then
+     * @param {function} onFulfilled
+     * @param {function} onRejected
+     * @returns {ExcaliburPromise}
+     */
+    _promise.prototype.then = function(onFulfilled, onRejected) {
+        var self = this;
+        return new this.constructor(function(resolve, reject) {
+            self._handle(new _Deferred(onFulfilled, onRejected, resolve, reject));
+        });
+    };
+
+    /**
+     * Add only reject reaction to promise
+     *
+     * @method
+     * @name E.Promise.prototype.catch
+     * @param {function} onRejected
+     * @returns {ExcaliburPromise}
+     */
     _promise.prototype.catch = function (onRejected) {
         return this.then(null, onRejected);
     };
 
-    _promise.prototype.then = function(onFulfilled, onRejected) {
-        var self = this;
-        return new _promise(function(resolve, reject) {
-            self._handle(new Deferred(onFulfilled, onRejected, resolve, reject));
-        });
-    };
-
-    function Deferred(onFulfilled, onRejected, resolve, reject) {
-        this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
-        this.onRejected = typeof onRejected === 'function' ? onRejected : null;
-        this.resolve = resolve;
-        this.reject = reject;
-    }
+    // Public promise class methods ============================================
 
 
 }(Excalibur);
