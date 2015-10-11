@@ -702,6 +702,22 @@
     };
 
     /**
+     * Extend instance, extra wrapper
+     *
+     * @function
+     * @name E.Class.extra
+     * @param {object} instance
+     * @param {object} props Target properties
+     * @returns {object} Extended instance
+     */
+    _class.extra = function(instance, props) {
+        var extra = Object.create(instance);
+        extra.superclass = instance;
+        _object.extend(extra, props || {});
+        return extra;
+    };
+
+    /**
      * Определить собственные методы класса
      * @param  {function|object} fce функция-конструктор класса или экземпляр
      * @return {array} набор собственных методов
