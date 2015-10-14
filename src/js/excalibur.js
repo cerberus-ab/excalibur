@@ -780,6 +780,18 @@
     })();
 
     /**
+     * Trim implementation
+     *
+     * @function
+     * @name E.String.trim
+     * @param {string} str
+     * @returns {string}
+     */
+    _string.trim = function(str) {
+        str.replace(/^\s+|\s+$/g, '');
+    };
+
+    /**
      * Найти все вхождения подстроки в строку
      * @param  {string} str целевая строка
      * @param  {string} needle искомая подстрока
