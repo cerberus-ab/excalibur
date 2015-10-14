@@ -788,7 +788,7 @@
      * @returns {string}
      */
     _string.trim = function(str) {
-        str.replace(/^\s+|\s+$/g, '');
+        return str.replace(/^\s+|\s+$/g, '');
     };
 
     /**
@@ -910,6 +910,95 @@
      */
     _string.test.isBIN = function(str) {
         return _string.regTest(str, "^[01]*$");
+    };
+
+    /**
+     * Template string class
+     *
+     * @class
+     * @constructor
+     * @name E.String.Template
+     * @param {string} template
+     * @param {object} options Optional
+     */
+    _string.Template = function TemplateString(template, options) {
+        /**
+         * Used template
+         *
+         * @property
+         * @private
+         * @name E.String._template
+         * @type {string}
+         */
+        this._template = template;
+        /**
+         * Used options
+         *
+         * @property
+         * @private
+         * @name E.String._options
+         * @type {object}
+         */
+        this._options = _object.extend({
+            /** @type {RegExp} Interpolate regexp (Default ERB-style) **/
+            interpolate : /<%=([\s\S]+?)%>/g
+        }, options);
+        /**
+         * Template attributes
+         *
+         * @property
+         * @private
+         * @name E.String._attrs
+         * @type {Array}
+         */
+        this._attrs = (function(self) {
+            var attrs = [];
+            self._template.replace(self._options.interpolate, function(match, interpolate) {
+                var key = _string.trim(interpolate);
+                if (attrs.indexOf(key) === -1) {
+                    attrs.push(key);
+                }
+                return match;
+            });
+            return attrs;
+        })(this);
+    };
+
+    /**
+     * Return source template
+     *
+     * @method
+     * @name E.String.Template.prototype.source
+     * @returns {string}
+     */
+    _string.Template.prototype.source = function() {
+        return this._template;
+    };
+
+    /**
+     * Return template attrs
+     *
+     * @method
+     * @name E.String.Template.prototype.attrs
+     * @returns {Array}
+     */
+    _string.Template.prototype.attrs = function() {
+        return this._attrs;
+    };
+
+    /**
+     * Execute template
+     *
+     * @method
+     * @name E.String.Template.prototype.execute
+     * @param {object} attrs
+     * @returns {string}
+     */
+    _string.Template.prototype.execute = function(attrs) {
+        return this._template.replace(this._options.interpolate, function(match, interpolate) {
+            var key = _string.trim(interpolate);
+            return typeof attrs[key] !== 'undefined' ? attrs[key] : match;
+        });
     };
 
     /**
