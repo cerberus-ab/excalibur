@@ -992,12 +992,19 @@
      * @method
      * @name E.String.Template.prototype.execute
      * @param {object} attrs
+     * @param {boolean} hard Optional throw error for undefined attr
      * @returns {string}
      */
-    _string.Template.prototype.execute = function(attrs) {
+    _string.Template.prototype.execute = function(attrs, hard) {
         return this._template.replace(this._options.interpolate, function(match, interpolate) {
             var key = _string.trim(interpolate);
-            return typeof attrs[key] !== 'undefined' ? attrs[key] : match;
+            if (typeof attrs[key] !== 'undefined') {
+                return attrs[key];
+            } else if (hard) {
+                throw new SyntaxError('expected ' + key);
+            } else {
+                return match;
+            }
         });
     };
 
