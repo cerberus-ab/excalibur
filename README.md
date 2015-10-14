@@ -3,7 +3,7 @@ _Just another javascript-native library_
 
 Настоящая библиотека не является готовым профессиональным решением для тех или иных задач. Это своего рода коллекция различного полезного функционала и реализаций популярных и интересных общих решений, в которых я испытывал потребность или был искушен в течение своего опыта клиентской (да и серверной) разработки на JavaScript. Модули библиотеки не имеют внешних зависимостей и выполнены на нативном JavaScript. В случае использования в элементах библиотеки решений других разработчиков я буду указывать их в аннотациях к заимствованным кускам кода.
 
-Всего: 11 модулей расширений, 3 константы, 82 функции, 9 классов.
+Всего: 9 модулей расширений, 3 константы, 84 функции, 9 классов.
 
 + [excalibur[-core]](#excalibur-core)
 + [excalibur-object-map](#excalibur-object-map)
@@ -75,10 +75,12 @@ Excalibur = E
   - getCombination
 + Class
   - extend
+  - extra
   - getOwnMethods
   - isClass
 + String
   - escapeHTML
+  - trim
   - indexOfAll
   - regTest
   - toCamelCase
@@ -91,6 +93,7 @@ Excalibur = E
   - test
     * isHEX
     * isBIN
+  - Template
 + [Performance](#eperformance)
   - [run](#eperformancerun)
   - setImmediate
