@@ -35,21 +35,33 @@
     var _object = E.Object = {};
 
     /**
-     * Наложить свойства одного объекта на другой
-     * @param  {object} dst целевой объект
-     * @param  {object} src накладываемый объект
-     * @param  {boolean} deep глубокое наложение (Default: false)
-     * @return {object} результирующий целевой объект
+     * Object extend
+     *
+     * @name E.Object.extend
+     * @param {object} dst
+     * @param {object} src Multiple supported
+     * @param {boolean} deep Optional, Default: false
+     * @returns {object}
      */
     _object.extend = function(dst, src, deep) {
-        for (var property in src) if (src.hasOwnProperty(property)) {
-            if (deep && src[property] && src[property].constructor === Object) {
-                dst[property] = dst[property] || {};
-                Object.extend(dst[property], src[property]);
-            } else {
-                dst[property] = src[property];
+        var lastArg = arguments[arguments.length -1];
+
+        src = Array.prototype.slice.call(arguments, 1,
+            arguments.length - (typeof lastArg === 'boolean' ? 1 : 0));
+        deep = typeof lastArg === 'boolean'
+            ? lastArg : false;
+
+        src.forEach(function(obj) {
+            for (var property in obj) if (obj.hasOwnProperty(property)) {
+                if (deep && obj[property] && obj[property].constructor === Object) {
+                    dst[property] = dst[property] || {};
+                    Object.extend(dst[property], obj[property], deep);
+                } else {
+                    dst[property] = obj[property];
+                }
             }
-        }
+        });
+
         return dst;
     };
 
